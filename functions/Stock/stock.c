@@ -5,11 +5,11 @@ int main(){
     // int view_all;
     // int view_single;
     int operation;
-    printf("1.Search products")
-    printf("2.view all products")
-    printf("3.view single product")
-    printf("Insert the operation :")
-    scanf("%d",%operation);
+    printf("1.Search products");
+    printf("2.view all products");
+    printf("3.view single product");
+    printf("Insert the operation :");
+    scanf("%d",&operation);
     switch (operation){
         case 1:
             void search_product();
