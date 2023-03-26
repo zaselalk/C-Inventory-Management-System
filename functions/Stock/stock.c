@@ -23,7 +23,7 @@ void search_stock_product(){
     //     printf("%d %s %d \n", product.id, product.name, product.quantity);
     // }
     FILE *productTable;
-    productTable = fopen("./data/products.txt", "r");
+    productTable = fopen("../../data/products.txt", "r");
     Product product;
     char view_stock_product[400];
     printf("%s\t %s\t\t %s\n", "Id", "Name", "Description");
