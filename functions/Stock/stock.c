@@ -16,14 +16,15 @@ void search_stock_product(){
     productTable = fopen("../../data/products.txt", "r");
     Product product;
     char search_st_product[400];
+    printf("-----------------------------------------------\n");
     printf("%s\t %s\t\t %s\n", "Id", "Name", "Description");
-    printf("--\t --\t\t --\n");
+    printf("-----------------------------------------------\n");
 
     while (fgets(search_st_product, sizeof(search_st_product), productTable) != NULL) {
       sscanf(search_st_product, "%d, %99[^,], %299[^,]", &product.id, product.name,
             product.description);
         if(product_stock_id == product.id){
-      printf("%d\t %s\t %s", product.id, product.name, product.description);}
+      printf("%d\t %s\t\t %s\n", product.id, product.name, product.description);}
     }
     fclose(productTable);
 }
@@ -32,16 +33,17 @@ void search_stock_product(){
     productTable = fopen("../../data/products.txt", "r");
     Product product;
     char view_stock_product[400];
+    printf("-----------------------------------------------\n");
     printf("%s\t %s\t\t %s\n", "Id", "Name", "Description");
-    printf("--\t --\t\t --\n");
+    printf("-----------------------------------------------\n");
 
     while (fgets(view_stock_product, sizeof(view_stock_product), productTable) != NULL) {
       sscanf(view_stock_product, "%d, %99[^,], %299[^,]", &product.id, product.name, product.description);
-      printf("%d\t %s\t %s", product.id, product.name, product.description);
+      printf("%d\t %s\t\t %s\n", product.id, product.name, product.description);
     }
     fclose(productTable);
  }
- void view_single_stock_product(){
+ void view_single_stock_product(){//This Function part is in under construction!
     int product_stock_id;
     printf("Insert the Product ID: ");
     scanf("%d",&product_stock_id);
@@ -49,12 +51,11 @@ void search_stock_product(){
     productTable = fopen("../../data/products.txt", "r");
     Product product;
     char single_stock_product[400];
+    printf("-----------------------------------------------\n");
     printf("%s\t %s\t\t %s\n", "Id", "Name", "Description");
-    printf("--\t --\t\t --\n");
-
+    printf("-----------------------------------------------\n");
     while (fgets(single_stock_product, sizeof(single_stock_product), productTable) != NULL) {
-      sscanf(single_stock_product, "%d, %99[^,], %299[^,]", &product.id, product.name,
-            product.description);
+      sscanf(single_stock_product, "%d, %99[^,], %299[^,]", &product.id, product.name, product.description);
         if(product_stock_id == product.id){
       printf("%d\t %s\t %s", product.id, product.name, product.description);}
     }

@@ -1,4 +1,4 @@
 001, apple, Fruits,
-001, apple, Fruits,
-001, apple, Fruits,
-001, apple, Fruits,
+002, Mango, Fruits,
+003, Pine apple, Fruits,
+004, Grapes, Fruits,
