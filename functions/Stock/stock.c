@@ -41,7 +41,7 @@ void search_stock_product(){
     printf("Insert the Product ID: ");
     scanf("%d",&product_stock_id);
     FILE *productTable;
-    productTable = fopen("./data/products.txt", "r");
+    productTable = fopen("../../data/products.txt", "r");
     Product product;
     char single_stock_product[400];
     printf("%s\t %s\t\t %s\n", "Id", "Name", "Description");
