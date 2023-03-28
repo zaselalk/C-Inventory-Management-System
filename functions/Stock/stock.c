@@ -8,7 +8,7 @@ typedef struct {
   int quantity;
 } Product;
 
-void search_stock_product(){
+void search_stock_product_by_ID(){
      int product_stock_id;
     printf("Insert the Product ID: ");
     scanf("%d",&product_stock_id);
@@ -63,22 +63,22 @@ void search_stock_product(){
  int main(){
   int operation;
 do{ printf("\n\nSTOCK MANAGEMENT\n\n");
-    printf("1.Search products\n");
+    printf("1.Search products by ID\n");
     printf("2.view all products\n");
-    printf("3.view single product\n");
+    printf("3.view single product by Name\n");
     printf("Insert the operation :");
     scanf("%d",&operation);}
     while((operation > 3 )|| (operation < 0));
     
     switch (operation){
         case 1:
-            search_stock_product();
-            break;
-        case 2:
             view_all_stock_product();
             break;
+        case 2:
+            search_stock_product_by_ID();
+            break;
         case 3:
-            view_single_stock_product();
+            view_single_stock_product_();
             break;
             
     }
