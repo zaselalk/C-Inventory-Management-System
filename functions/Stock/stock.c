@@ -68,7 +68,7 @@ do{ printf("\n\nSTOCK MANAGEMENT\n\n");
     printf("3.view single product\n");
     printf("Insert the operation :");
     scanf("%d",&operation);}
-    while((operation > 3 )|| (operation == 0));
+    while((operation > 3 )|| (operation < 0));
     
     switch (operation){
         case 1:
