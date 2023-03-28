@@ -57,7 +57,7 @@ void search_stock_product(){
     while (fgets(single_stock_product, sizeof(single_stock_product), productTable) != NULL) {
       sscanf(single_stock_product, "%d, %99[^,], %299[^,]", &product.id, product.name, product.description);
         if(product_stock_id == product.id){
-      printf("%d\t %s\t %s", product.id, product.name, product.description);}
+      printf("%d\t %s\t\t %s\n", product.id, product.name, product.description);}
     }
     fclose(productTable);
  }
