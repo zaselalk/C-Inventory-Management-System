@@ -1,6 +1,5 @@
-1 Product 1 Description 1 10.000000 10 
-1 Product 1 Description 1 10.000000 10 
-1 Product 1 Description 1 10.000000 10 
-1 Product 1 Description 1 10.000000 10 
-1 Product 1 Description 1 10.000000 10 
-1 Product 1 Description 1 10.000000 10 
+Produtc Id, Product Name, Product Description, Product Cost, Product Selling Price 
+1, Note Book, Single Rule Note Book, 200, 250 
+2, Single Rule Book, Single Rule Note Book, 200, 250 
+3, Double Rule, Single Rule Note Book, 200, 250 
+

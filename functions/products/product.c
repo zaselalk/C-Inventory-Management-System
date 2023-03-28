@@ -6,8 +6,6 @@ typedef struct
   int id;
   char name[100];
   char description[300];
-  char created_at[20];
-  char updated_at[20];
   char cost_price[20];
   char selling_price[20];
   char supplier_id[20];
