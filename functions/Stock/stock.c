@@ -8,6 +8,24 @@ typedef struct {
   int quantity;
 } Product;
 
+  int get_id() {
+  FILE *productTable;
+  productTable = fopen("products.txt", "r");
+
+  if (productTable == NULL) {
+    return 1;
+  }
+
+  int last_id = 0;
+  char line[400];
+
+  while (fgets(line, sizeof(line), productTable) != NULL) {
+    sscanf(line, "%d", &last_id);
+  }
+
+  return last_id + 1;
+}
+
 void search_stock_product_by_ID(){
      int product_stock_id;
     printf("Insert the Product ID: ");
@@ -63,8 +81,8 @@ void search_stock_product_by_ID(){
  int main(){
   int operation;
 do{ printf("\n\nSTOCK MANAGEMENT\n\n");
-    printf("1.Search products by ID\n");
-    printf("2.view all products\n");
+    printf("1.view all products\n");
+    printf("2.Search products by ID\n");
     printf("3.view single product by Name\n");
     printf("Insert the operation :");
     scanf("%d",&operation);}
@@ -78,7 +96,7 @@ do{ printf("\n\nSTOCK MANAGEMENT\n\n");
             search_stock_product_by_ID();
             break;
         case 3:
-            view_single_stock_product_();
+            view_single_stock_product();
             break;
             
     }
