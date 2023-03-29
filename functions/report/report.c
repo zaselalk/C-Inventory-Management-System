@@ -8,7 +8,8 @@ typedef struct
     char description[300];
     float price;
     int stock;
-} Product;
+} 
+Product;
 
 // List all product
 void productDetails()
@@ -92,3 +93,9 @@ void get_expiring_items()
     }
     fclose(productTable);
 }
+int main(){
+    
+    return 0;
+}
+
+//sales profit
