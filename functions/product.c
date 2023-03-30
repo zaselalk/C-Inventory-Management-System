@@ -30,7 +30,7 @@ Product get_single_product(int find_id) {
     }
   }
 }
-int get_id() {
+int get_product_id() {
   FILE *productTable;
   productTable = fopen("products.txt", "r");
 
@@ -76,7 +76,7 @@ void add_product() {
   product.supplier_id[strcspn(product.supplier_id, "\n")] =
       '\0'; // remove new line character
 
-  product.id = get_id();
+  product.id = get_product_id();
 
   productTable = fopen("products.txt", "a");
 
@@ -85,10 +85,9 @@ void add_product() {
     return;
   }
 
-  fprintf(productTable, "%d, %s, %s, %s, %s, %s, %s, %s \n", product.id,
+  fprintf(productTable, "%d, %s, %s, %s, %s, %s \n", product.id,
           product.name, product.description, product.cost_price,
-          product.selling_price, product.supplier_id, product.created_at,
-          product.updated_at);
+          product.selling_price, product.supplier_id );
   fclose(productTable);
 }
 
