@@ -2,144 +2,140 @@
 #include <stdlib.h>
 #include <string.h>
 
-void get_txt(int product_id, char *product_name, int product_quantity, float product_price)
+void get_txt(int warehouse_id, char *warehouse_name, char *warehouse_location)
 {
 	FILE *file_write;
 	file_write = fopen("wh_products.txt", "a");
-	fprintf(file_write, "%d , %s , %d , %.2f\n", product_id, product_name, product_quantity, product_price);
+	fprintf(file_write,"%d,%s,%s\n",warehouse_id,warehouse_name,warehouse_location);
 	fclose(file_write);
 }
 
 typedef struct
 {
-	int product_id;
-	char product_name[50];
-	int product_quantity;
-	float product_price;
-} dil;
+	int warehouse_id;
+	char warehouse_name[50];
+	char warehouse_location[50];
+}wh_add;
 
-void add_item()
+void add_warehouse()
 {
-	dil warehouse;
-	printf("Enter item ID:");
-	scanf("%d", &warehouse.product_id);
+	wh_add warehouse;
+	printf("Enter warehouse ID:");
+	scanf("%d",&warehouse.warehouse_id);
 	getchar();
 
-	printf("Enter item name:");
-	scanf("%s", warehouse.product_name);
+	printf("Enter warehouse name:");
+	scanf("%s",warehouse.warehouse_name);
 	getchar();
 
-	printf("Enter item quantity:");
-	scanf("%d", &warehouse.product_quantity);
+	printf("Enter warehouse location:");
+	scanf("%s",warehouse.warehouse_location);
 	getchar();
 
-	printf("Enter item price:");
-	scanf("%f", &warehouse.product_price);
-	getchar();
-
-	get_txt(warehouse.product_id, warehouse.product_name, warehouse.product_quantity, warehouse.product_price);
+	get_txt(warehouse.warehouse_id, warehouse.warehouse_name, warehouse.warehouse_location);
 }
 
-void display_item()
+void display_warehouse()
+
 {
+	int warehouse_id;
+	char warehouse_name[200];
+	char warehouse_location[200];
+	
 	FILE *file_read;
 	file_read = fopen("wh_products.txt", "r");
 	char text_store[200];
 	while (fgets(text_store, 200, file_read) != NULL)
 	{
+		sscanf(text_store,"%d, %49[^,], %49[^,]",&warehouse_id,warehouse_name,warehouse_location);	
 
-		printf("%s\n", text_store);
+		printf("%d\t         %s\t         %s\t\t\t\n",warehouse_id,warehouse_name,warehouse_location);
 	}
 	fclose(file_read);
 }
 
-void delete_item(int find_id)
+void delete_warehouse(int find_id)
 {
-	FILE *product_ta = fopen("wh_products.txt", "r");
-	FILE *product_tanew = fopen("wh_newproducts.txt", "w");
+	FILE *warehouse_ta=fopen("wh_products.txt", "r");
+	FILE *warehouse_tanew=fopen("wh_newproducts.txt", "w");
 
-	int product_id;
-	char product_name[50];
-	int product_quantity;
-	float product_price;
+	int warehouse_id;
+	char warehouse_name[200];
+	char warehouse_location[200];
 	char content[400];
 
-	while (fgets(content, 400, product_ta) != NULL)
-	{
-		sscanf(content, "%d ,  %[^,] , %d , %f", &product_id, product_name, &product_quantity, &product_price);
+	 while (fgets(content, 400, warehouse_ta) != NULL)
+    {
+        sscanf(content, "%d, %[^,], %[^,]", &warehouse_id, warehouse_name, warehouse_location);
 
-		if (find_id == product_id)
-		{
-			continue;
-		}
-		else
-		{
-			fprintf(product_tanew, "%d , %s , %d, %.2f\n", product_id, product_name, product_quantity, product_price);
-		}
-	}
+        if (find_id == warehouse_id)
+        {
+            continue;
+        }
+        else
+        {
+            fprintf(warehouse_tanew, "%d, %s, %s", warehouse_id, warehouse_name, warehouse_location);
+        }
+    }
 
-	fclose(product_ta);
-	fclose(product_tanew);
+
+	fclose(warehouse_ta);
+	fclose(warehouse_tanew);
 	remove("wh_products.txt");
-	rename("wh_newproducts.txt", "wh_products.txt");
+	rename("wh_newproducts.txt","wh_products.txt");
 }
 
 void get_id()
 {
 	int find_id;
 	printf("Enter id for delete:");
-	scanf("%d", &find_id);
-	delete_item(find_id);
+	scanf("%d",&find_id);
+	delete_warehouse(find_id);
 }
 
-void up_id(int new_id, char *new_name, int new_quantity, float new_price)
+void up_id(int new_id,char *new_name,char *new_location)
 {
-	FILE *old_file = fopen("wh_products.txt", "r");
-	FILE *up_file = fopen("wh_newproducts.txt", "w");
-	printf("hello");
+	FILE *old_file=fopen("wh_products.txt", "r");
+	FILE *up_file=fopen("wh_newproducts.txt", "w");
 
-	int product_id;
-	char product_name[50];
-	int product_quantity;
-	float product_price;
+
+	int warehouse_id;
+	char warehouse_name[200];
+	char warehouse_location[200];
 	char content[400];
 
-	while (fgets(content, 400, old_file) != NULL)
-	{
+	 while (fgets(content, 400, old_file) != NULL)
+    {
+        sscanf(content, "%d, %[^,], %[^,]", &warehouse_id, warehouse_id, warehouse_location);
 
-		sscanf(content, " %d , %[^,] , %d , %f ", &product_id, product_name, &product_quantity, &product_price);
-
-		if (new_id == product_id)
-		{
-
-			fprintf(up_file, " %d , %s , %d , %.2f \n", new_id, new_name, new_quantity, new_price);
-		}
-		else
-		{
-			fprintf(up_file, "%d , %s , %d , %.2f\n", product_id, product_name, product_quantity, product_price);
-		}
-	}
+        if (new_id == warehouse_id)
+        {
+            fprintf(up_file, "%d, %s, %s\n", new_id, new_name, new_location);
+        }
+        else
+        {
+            fprintf(up_file, "%d, %s, %s\n", warehouse_id, warehouse_name, warehouse_location);
+        }
+    } 
 	fclose(old_file);
 	fclose(up_file);
 	remove("wh_products.txt");
-	rename("wh_newproducts.txt", "wh_products.txt");
+	rename("wh_newproducts.txt","wh_products.txt");
 }
 void take_id()
 {
 	int new_id;
-	char *new_name;
-	int new_quantity;
-	float new_price;
-	printf("Enter id for update:");
-	scanf("%d", &new_id);
-	printf("Enter P_name for update:");
-	scanf("%s", new_name);
-	printf("Enter P_quantity:");
-	scanf("%d", &new_quantity);
-	printf("Enter p_price:");
-	scanf("%f", &new_price);
+	char new_name[200];
+	char new_location[200];
 
-	up_id(new_id, new_name, new_quantity, new_price);
+	printf("Enter id for update:");
+	scanf("%d",&new_id);
+	printf("Enter w_name for update:");
+	scanf("%s",new_name);
+	printf("Enter w_location:");
+	scanf("%s",new_location);
+
+	up_id(new_id, new_name, new_location);
 }
 
 int main()
@@ -148,10 +144,10 @@ int main()
 	do
 	{
 		printf("------------------------------------\n");
-		printf("1. Add item\n");
-		printf("2. Display items\n");
-		printf("3. Delete  items\n");
-		printf("4. Update items\n");
+		printf("1. Add warehouse\n");
+		printf("2. Display warehouse\n");
+		printf("3. Delete  warehouse\n");
+		printf("4. Update warehouse\n");
 		printf("5. Exit\n");
 		printf("------------------------------------\n");
 		printf("Please enter your choise:");
@@ -159,11 +155,13 @@ int main()
 		switch (choise)
 		{
 		case 1:
-			add_item();
+			add_warehouse();
 			break;
 		case 2:
-			// printf("P_id\t p_name\t p_quntity\t p_price");
-			display_item();
+			printf("=============================================================\n");
+			printf("Warehouse id\t Warehouse name\t Warehouse location\t\n");
+			printf("=============================================================\n");
+			display_warehouse();
 			break;
 		case 3:
 			get_id();
@@ -175,7 +173,7 @@ int main()
 			printf("Goodbye!\n");
 			break;
 		default:
-			printf("Invalid choise\n");
+			printf("Invalid warehouse\n");
 			break;
 		}
 	} while (choise != 5);
