@@ -11,23 +11,10 @@ typedef struct {
   int st_lines;
 } Product;
 
-  int get_id() {
-  FILE *productTable;
-  productTable = fopen("products.txt", "r");
 
-  if (productTable == NULL) {
-    return 1;
-  }
+//----------------------STORE DATA IN TEXT-----------------------------
 
-  int last_id = 0;
-  char line[400];
 
-  while (fgets(line, sizeof(line), productTable) != NULL) {
-    sscanf(line, "%d", &last_id);
-  }
-
-  return last_id + 1;
-}
 void store_file(){
   Product product;
   int st_count=1;
@@ -44,11 +31,51 @@ void store_file(){
   scanf("%d",&product.warehouse_id);
   printf("Enter product Expire Date: ");
   scanf("%d",&product.expire_date);
-  fprintf(StockTable,"%d,%d,%d,%d,%d\n",get_id(),product.id,product.quantity,product.warehouse_id,product.expire_date);
+  fprintf(StockTable,"%d,%d,%d,%d,%d\n",st_count,product.id,product.quantity,product.warehouse_id,product.expire_date);
   st_count=st_count+1;
   }
   fclose(StockTable);
 }
+//-----------------------VIEW ALL STOCK--------------------------------
+
+
+  void view_all_stock_product(){
+    int st_count;
+    Product product;
+    FILE *productTable;
+  productTable = fopen("../../data/Stock.txt", "r");
+  char view_stock_product[400];
+  printf("------------------------------------------------------------------------------------------------\n");
+  printf("%s\t %s\t\t %s\t %s\t\t %s\n", "Stock_ID", "Product_ID", "Quantity","Warehouse_ID","Expire_Date");
+  printf("------------------------------------------------------------------------------------------------\n");
+  while (fgets(view_stock_product, sizeof(view_stock_product), productTable) != NULL) {
+      sscanf(view_stock_product, "%d,%d,%d,%d,%d",&st_count,&product.id,&product.quantity,&product.warehouse_id,&product.expire_date);
+      printf("%d\t\t   %d\t\t\t  %d\t\t   %d\t\t\t  %d\n",st_count,product.id,product.quantity,product.warehouse_id,product.expire_date);
+    }
+    fclose(productTable);
+ }
+ //--------------------SEARCH STOCK BY ID--------------------------------
+
+
+ void search_stock_product_by_ID(){
+    int st_count;
+    Product product;
+    int product_stock_id;
+    printf("Insert the Product ID: ");
+    scanf("%d",&product_stock_id);
+    FILE *productTable;
+  productTable = fopen("../../data/Stock.txt", "r");
+  char search_st_product[400];
+  printf("------------------------------------------------------------------------------------------------\n");
+  printf("%s\t %s\t\t %s\t %s\t\t %s\n", "Stock_ID", "Product_ID", "Quantity","Warehouse_ID","Expire_Date");
+  printf("------------------------------------------------------------------------------------------------\n");
+  while (fgets(search_st_product, sizeof(search_st_product), productTable) != NULL) {
+      sscanf(search_st_product, "%d,%d,%d,%d,%d",&st_count,&product.id,&product.quantity,&product.warehouse_id,&product.expire_date);
+      if(product_stock_id == product.id){
+      printf("%d\t\t   %d\t\t\t  %d\t\t   %d\t\t\t  %d\n",st_count,product.id,product.quantity,product.warehouse_id,product.expire_date);}
+    }
+    fclose(productTable);
+ }
 
 
 
@@ -56,61 +83,39 @@ void store_file(){
 
 
 
-  
-  // FILE *productTable;
-  // productTable = fopen("../../data/products.txt", "r");
-  // char view_stock_product[400];
-  // while (fgets(view_stock_product, sizeof(view_stock_product), productTable) != NULL) {
-  //     sscanf(view_stock_product, "%d, %*[^,], %*[^,]", &product.id);
-  
-  // fprintf(StockTable,"%d,%d",get_id(),product.id);
-  // fclose(StockTable);
-  // FILE *StockTable;
-  // StockTable = fopen("../../data/Stock.txt", "a");
-  
-  
-  // fclose(productTable);
-// void view_all_stock_product(){
-//     FILE *productTable;
-//     productTable = fopen("../../data/products.txt", "r");
-//     Product product;
-//     char view_stock_product[400];
-//     printf("---------------------------------------------------------------------------\n");
-//     printf("%s\t %s\t\t %s\t %s\t\t %s\n", "Stock_ID", "Product_ID", "Quantity","Warehouse_ID","Expire_Date");
-//     printf("---------------------------------------------------------------------------\n");
 
-//     while (fgets(view_stock_product, sizeof(view_stock_product), productTable) != NULL) {
-//       sscanf(view_stock_product, "%d,%d,%d,%d,%d", &product.id);
-//       FILE *StockTable;
-//       StockTable=fopen("../../data/temp_Stock.txt", "r");
-//       char view_stock_product1[400];
-//       fgets(view_stock_product1,sizeof(view_stock_product1),StockTable);
 
-//     printf("%d\t %s\t\t %s\t\t %.2f\t\t %d\n",get_id(),product.id,);
-//     }
-//     fclose(productTable);
-//  }
+
+
+
+
+
+
+//-----------------------------MAIN-------------------------------------
+   
  int main(){
   int operation;
-  store_file();//create a function for that
-    // printf("\n\nSTOCK MANAGEMENT\n\n");
-    // printf("1.view all products\n");
-    // printf("2.Search products by ID\n");
-    // printf("3.view single product by Name\n");
-    // printf("Insert the operation :");
-    // scanf("%d",&operation);
-    // while((operation > 3 )|| (operation < 0));
+  
+    printf("\n\nSTOCK MANAGEMENT\n\n");
+    printf("1.Add Stock Details\n");
+    printf("2.View All Products\n");
+    printf("3.Search Products by Product ID\n");
+     printf("4.View Single Product by Name\n");
+    printf("Insert the Operation :");
+    scanf("%d",&operation);
     
-    // switch (operation){
-    //     case 1:
-    //         // view_all_stock_product();
-    //         break;
-    //     case 2:
-    //         // search_stock_product_by_ID();
-    //         break;
-    //     case 3:
-    //         // view_single_stock_product();
-    //         break;
-            
-    // }
+    switch (operation){
+        case 1:
+            store_file();
+            break;
+        case 2:
+            view_all_stock_product();
+            break;
+        case 3:
+            search_stock_product_by_ID();
+            break;
+        case 4:
+            // view_single_stock_product();
+            break;
+    }
    }
