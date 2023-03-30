@@ -12,6 +12,30 @@ typedef struct {
 } Product;
 
 
+int get_id() {
+  FILE *StockTable;
+  StockTable = fopen("../../data/Stock.txt", "r");
+
+  if (StockTable == NULL) {
+    return 1;
+  }
+
+  int last_id = 0;
+  char line[400];
+
+  while(fgets(line, sizeof(line), StockTable) != NULL){
+    sscanf(line, "%d", &last_id);
+  }
+  
+  return last_id + 1;
+
+ 
+
+  }
+
+  
+
+
 //----------------------STORE DATA IN TEXT-----------------------------
 
 
@@ -31,7 +55,7 @@ void store_file(){
   scanf("%d",&product.warehouse_id);
   printf("Enter product Expire Date: ");
   scanf("%d",&product.expire_date);
-  fprintf(StockTable,"%d,%d,%d,%d,%d\n",st_count,product.id,product.quantity,product.warehouse_id,product.expire_date);
+  fprintf(StockTable,"%d,%d,%d,%d,%d\n",get_id(),product.id,product.quantity,product.warehouse_id,product.expire_date);
   st_count=st_count+1;
   }
   fclose(StockTable);
