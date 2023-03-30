@@ -6,13 +6,13 @@ typedef struct {
   int warehouse_id;
   int expire_date;
   int st_id;
-} Product;
+} Stock;
 
 //--------------------Creating a ID--------------------------
 
-int get_id() {
+int get_stock_id() {
   FILE *productTable;
-  productTable = fopen("../../data/Stock.txt", "r");
+  productTable = fopen("../../data/stock.txt", "r");
 
   if (productTable == NULL) {
     return 1;
@@ -31,9 +31,9 @@ int get_id() {
 //----------------------STORE DATA IN TEXT-----------------------------
 
 void store_file() {
-  Product product;
+  Stock product;
   FILE *StockTable;
-  StockTable = fopen("../../data/Stock.txt", "a+");
+  StockTable = fopen("./data/stock.txt", "a+");
   printf("Enter product ID: ");
   scanf("%d", &product.id);
   printf("Enter product Quantity: ");
@@ -42,7 +42,7 @@ void store_file() {
   scanf("%d", &product.warehouse_id);
   printf("Enter product Expire Date: ");
   scanf("%d", &product.expire_date);
-  product.st_id = get_id();
+  product.st_id = get_stock_id();
   fprintf(StockTable, "%d,%d,%d,%d,%d\n", product.st_id, product.id,
           product.quantity, product.warehouse_id, product.expire_date);
 
@@ -52,9 +52,9 @@ void store_file() {
 
 void view_all_stock_product() {
   int st_count;
-  Product product;
+  Stock product;
   FILE *productTable;
-  productTable = fopen("../../data/Stock.txt", "r");
+  productTable = fopen("./data/stock.txt", "r");
   char view_stock_product[400];
   printf("---------------------------------------------------------------------"
          "---------------------------\n");
@@ -75,12 +75,12 @@ void view_all_stock_product() {
 
 void search_stock_product_by_ID() {
   int st_count;
-  Product product;
+  Stock product;
   int product_stock_id;
   printf("Insert the Product ID: ");
   scanf("%d", &product_stock_id);
   FILE *productTable;
-  productTable = fopen("../../data/Stock.txt", "r");
+  productTable = fopen("./data/stock.txt", "r");
   char search_st_product[400];
   printf("---------------------------------------------------------------------"
          "---------------------------\n");
@@ -104,12 +104,12 @@ void search_stock_product_by_ID() {
 
 void search_stock_by_stock_ID() {
   int st_count;
-  Product product;
+  Stock product;
   int product_stock_id;
   printf("Insert the Stock ID: ");
   scanf("%d", &product_stock_id);
   FILE *productTable;
-  productTable = fopen("../../data/Stock.txt", "r");
+  productTable = fopen("./data/stock.txt", "r");
   char search_st_by_id[400];
   printf("---------------------------------------------------------------------"
          "---------------------------\n");
@@ -131,18 +131,19 @@ void search_stock_by_stock_ID() {
 
 //-----------------------------MAIN-------------------------------------
 
-int main() {
+int manage_stock() {
   int operation;
 
-  printf("\n\nSTOCK MANAGEMENT\n\n");
-  printf("Operations\n\n");
-  printf("-------------------------------\n");
-  printf("1.Add a New Stock\n");
-  printf("2.View Current Stock\n");
-  printf("3.Search Stock by Stock ID\n");
-  printf("4.Search Stock by Product ID\n");
-  printf("-------------------------------\n\n");
-  printf("Insert the Operation :");
+  printf("\n");
+  printf("\033[1;34mSTOCK MANAGEMENT\033[0m\n\n");
+  printf("\033[1mOperations\033[0m\n\n");
+  printf("\033[1m-------------------------------\033[0m\n");
+  printf("\033[1;32m+\033[0m 1 -Add a new stock item\n");
+  printf("\033[1;36m?\033[0m 2 -View current stock\n");
+  printf("\033[1;34m?\033[0m 3 -Search for a stock item by ID\n");
+  printf("\033[1;34m?\033[0m 4 -Search for a stock item by product ID\n");
+  printf("\033[1m-------------------------------\033[0m\n\n");
+  printf("Insert the operation: ");
   scanf("%d", &operation);
 
   switch (operation) {
