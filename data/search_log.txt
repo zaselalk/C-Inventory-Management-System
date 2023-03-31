@@ -1,0 +1,7 @@
+apple
+cat
+dog
+mango
+cat
+apple
+cat

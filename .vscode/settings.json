@@ -1,5 +1,6 @@
 {
     "files.associations": {
         "string.h": "c"
-    }
+    },
+    "easycode.model": "gpt-4"
 }
