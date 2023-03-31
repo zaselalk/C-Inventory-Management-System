@@ -2,13 +2,38 @@
 #include <string.h>
 typedef struct {
   int id;
+  char name[100];
+  char description[300];
   int quantity;
   int warehouse_id;
   char expire_date[20];
   int st_id;
 } Stock;
 
-//--------------------Creating a ID--------------------------
+//------------------------DISPLAY PRODUCTS IN STOCK----------------------------
+
+void display_product_in_stock()
+{
+
+  FILE *productTable;
+  productTable = fopen("../data/products.txt", "r");
+
+  Stock product;
+  char single_stock_product[400];
+  printf("--------------------------------------\n");
+  printf("%s\t %s\t\t %s\t\t\n", "Id", "Name", "Description");
+  printf("--------------------------------------\n");
+
+  while (fgets(single_stock_product, sizeof(single_stock_product), productTable) != NULL)
+  {
+    sscanf(single_stock_product, "%d, %99[^,], %299[^,]", &product.id, product.name,
+           product.description);
+       printf("%d\t %s\t\t %s\n", product.id, product.name, product.description);
+    
+  }
+}
+
+//-------------------------CREATING A STOCK ID--------------------------
 
 int get_stock_id() {
   FILE *productTable;
@@ -28,7 +53,7 @@ int get_stock_id() {
   return last_id + 1;
 }
 
-//-------------------------WAREHOUSE------------------------------
+//-------------------------DISPLAY WAREHOUSE IN STOCK------------------------------
 
 void display_warehouse_in_stock()
 
@@ -59,6 +84,7 @@ void store_file() {
   Stock product;
   FILE *StockTable;
   StockTable = fopen("../data/stock.txt", "a+");
+  display_product_in_stock();
   printf("Enter product ID: ");
   scanf("%d", &product.id);
   printf("Enter product Quantity: ");
@@ -158,8 +184,8 @@ void search_stock_by_stock_ID() {
 
 
 //-----------------------------MAIN-------------------------------------
-//manage_stock
-int main() {
+
+int manage_stock() {
   int operation;
 
   printf("\n");
