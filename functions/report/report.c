@@ -6,16 +6,19 @@ typedef struct
     int id;
     char name[100];
     char description[300];
-    float price;
-    int stock;
-} 
-Product;
+    char cost_price[20];
+    char selling_price[20];
+    char supplier_id[20];
+    int quantity;
+} Product;
 
 // List all product
 void productDetails()
 {
     FILE *productTable;
-    productTable = fopen("products.txt", "r");
+    productTable = fopen("../../data/products.txt", "r");
+    FILE *stockTable;
+    stockTable = fopen("../../data/stock.txt", "r");
     Product product;
     char line[400];
     printf("%s\t %s\t\t %s\t\t %s\t %s\n", "Id", "Name", "Description", "Price", "Stock");
@@ -23,8 +26,19 @@ void productDetails()
 
     while (fgets(line, sizeof(line), productTable) != NULL)
     {
-        sscanf(line, "%d, %99[^,], %299[^,], %f, %d", &product.id, product.name, product.description, &product.price, &product.stock);
-        printf("%d\t %s\t %s\t %.2f\t %d\n", product.id, product.name, product.description, product.price, product.stock);
+        int total_quentity = 0;
+        while (fgets(line, sizeof(line), stockTable) != NULL)
+        {
+            if (product.id == product.id)
+            {
+                total_quentity += product.quantity;
+            }
+            
+            sscanf(line, "%d, %99[^,], %299[^,], %f, %d", &product.id, product.name, product.description, &product.selling_price, &product.quantity);
+            printf("%d\t %s\t %s\t %.2f\t %d\n", product.id, product.name, product.description, product.selling_price, total_quentity);
+        }
+        
+        
     }
     fclose(productTable);
 }
@@ -63,10 +77,10 @@ void get_low_stock_products()
     while (fgets(line, sizeof(line), productTable) != NULL)
     {
         sscanf(line, "%d, %99[^,], %299[^,], %f, %d", &product.id, product.name,
-               product.description, &product.price, &product.stock);
-        if (product.stock < 10)
+               product.description, &product.selling_price, &product.quantity);
+        if (product.quantity < 10)
         {
-            printf("%d\t %s\t %s\t %.2f\t %d\n", product.id, product.name, product.description, product.price, product.stock);
+            printf("%d\t %s\t %s\t %.2f\t %d\n", product.id, product.name, product.description, product.selling_price, product.quantity);
         }
     }
     fclose(productTable);
@@ -85,17 +99,53 @@ void get_expiring_items()
     while (fgets(line, sizeof(line), productTable) != NULL)
     {
         sscanf(line, "%d, %99[^,], %299[^,], %f, %d", &product.id, product.name,
-               product.description, &product.price, &product.stock);
-        if (product.stock > 0)
+               product.description, &product.selling_price, &product.quantity);
+        if (product.quantity > 0)
         {
-            printf("%d\t %s\t %s\t %.2f\t %s\n", product.id, product.name, product.description, product.price, "30/06/2022");
+            printf("%d\t %s\t %s\t %.2f\t %s\n", product.id, product.name, product.description, product.selling_price, "30/06/2022");
         }
     }
     fclose(productTable);
 }
-int main(){
-    
-    return 0;
-}
 
 //sales profit
+void view_sales_profit()
+{
+
+}
+
+int main(){
+  int operation;
+
+  printf("\n");
+  printf("\033[1;34mREPORT\033[0m\n\n");
+  printf("\033[1mOperations\033[0m\n\n");
+  printf("\033[1m-------------------------------\033[0m\n");
+  printf("\033[1;32m+\033[0m 1 -List all products\n");
+  printf("\033[1;36m?\033[0m 2 -List most seached products\n");
+  printf("\033[1;34m?\033[0m 3 -List low stock products\n");
+  printf("\033[1;34m?\033[0m 4 -List expiring products\n");
+  printf("\033[1;34m?\033[0m 5 -View sales profit\n");
+  printf("\033[1m-------------------------------\033[0m\n\n");
+  printf("Insert the operation: ");
+  scanf("%d", &operation);
+
+  switch (operation) {
+    case 1:
+        productDetails();
+        break;
+    case 2:
+        get_most_searched_product();
+        break;
+    case 3:
+        get_low_stock_products();
+        break;
+    case 4:
+        get_expiring_items();
+        break;
+    case 5:
+        view_sales_profit();
+        break;
+  }
+  return 0;
+}
