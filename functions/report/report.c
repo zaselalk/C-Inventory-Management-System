@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 
 typedef struct
 {
@@ -18,6 +19,12 @@ typedef struct {
     int warehouse_id;
     char expire_date[20];
 } Stock;
+
+typedef struct {
+    int search_count;
+    int product_id;
+    char product_name[100];
+} SearchLog;
 
 // List all product
 int productDetails()
@@ -59,25 +66,92 @@ int productDetails()
 }
 
 // List most search products
-int get_most_searched_product()
+int search_log_compare(const void *a, const void *b)
 {
-    FILE *searchHistory;
-    searchHistory = fopen("search_log.txt", "r");
-    int product_id, search_count, max_search_count = 0, most_searched_product_id = 0;
-    char line[100];
-
-    while (fgets(line, sizeof(line), searchHistory) != NULL)
-    {
-        sscanf(line, "%d, %d", &product_id, &search_count);
-        if (search_count > max_search_count)
-        {
-            max_search_count = search_count;
-            most_searched_product_id = product_id;
-        }
-    }
-    fclose(searchHistory);
-    return most_searched_product_id;
+    SearchLog *logA = (SearchLog *)a;
+    SearchLog *logB = (SearchLog *)b;
+    return logB->search_count - logA->search_count;
 }
+void get_most_searched_product()
+{
+    FILE *searchLogTable;
+    searchLogTable = fopen("../../data/search_log.txt", "r");
+    FILE *searchIdLogTable;
+    searchIdLogTable = fopen("../../data/search_by_id_log.txt", "r");
+    if (searchLogTable == NULL || searchIdLogTable == NULL)
+    {
+        printf("Couldn't open");
+    }
+
+    SearchLog search_logs[1000] = {0};
+    int product_id;
+    char product_name[100];
+    char search_log_line[400];
+    int search_logs_count = 0;
+
+    while (fgets(search_log_line, sizeof(search_log_line), searchLogTable) != NULL) {
+    sscanf(search_log_line, "%99[^\n]", product_name);
+
+    int found = 0;
+    for (int i = 0; i < search_logs_count; i++) {
+        if (strcmp(search_logs[i].product_name, product_name) == 0) {
+            search_logs[i].search_count++;
+            found = 1;
+            break;
+    }
+    }
+
+    if (!found) {
+        strcpy(search_logs[search_logs_count].product_name, product_name);
+        search_logs[search_logs_count].search_count = 1;
+        search_logs_count++;
+    }
+    qsort(search_logs, search_logs_count, sizeof(SearchLog), search_log_compare);
+
+    printf("Most searched products || Search Count\n");
+    printf("--------------------------------------\n");
+    for (int i = 0; i < 3 && i < search_logs_count; i++) {
+        printf("%-20s || %d\n", search_logs[i].product_name, search_logs[i].search_count);
+    }
+    fclose(searchLogTable);
+    }
+}
+
+
+//     while (fgets(search_log_line, sizeof(search_log_line), searchLogTable) != NULL)
+//     {
+//         sscanf(search_log_line, "%d", &product_id);
+//         search_logs[product_id].product_id = product_id;
+//         search_logs[product_id].search_count++;
+//     }
+
+//     while (fgets(search_log_line, sizeof(search_log_line), searchLogTable) != NULL) {
+//         sscanf(search_log_line, "%99[^\n]", product_name);
+//         Product product = get_product_by_name(product_name);
+// if (product.id != -1) {
+// search_logs[product.id].product_id = product.id;
+// strcpy(search_logs[product.id].product_name, product.name);
+// search_logs[product.id].search_count++;
+// }
+    
+//     int max_search_count = 0;
+//     int most_searched_product_id = -1;
+
+//     for (int i = 0; i < 1000; i++) { if (search_logs[i].search_count > max_search_count) {
+//             max_search_count = search_logs[i].search_count;
+//             most_searched_product_id = search_logs[i].product_id;
+//         }
+//     }
+
+//     if (most_searched_product_id != -1) {
+//         printf("Most searched product: %s (ID: %d) with %d searches\n", search_logs[most_searched_product_id].product_name, most_searched_product_id, max_search_count);
+//     } else {
+//         printf("No search data available\n");
+
+
+// fclose(searchLogTable);
+// fclose(searchIdLogTable);
+
 
 // List low stock products
 void get_low_stock_products()
