@@ -184,7 +184,6 @@ void search_stock_by_stock_ID() {
 
 
 //-----------------------------MAIN-------------------------------------
-
 int manage_stock() {
   int operation;
 
