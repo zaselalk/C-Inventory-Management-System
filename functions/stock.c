@@ -28,6 +28,31 @@ int get_stock_id() {
   return last_id + 1;
 }
 
+//-------------------------WAREHOUSE------------------------------
+
+void display_warehouse_in_stock()
+
+{
+	int warehouse_id;
+	char warehouse_name[200];
+	char warehouse_location[200];
+	
+	FILE *file_read;
+	file_read = fopen("warehouse/wh_products.txt", "r");
+	char text_store[200];
+  printf("--------------------------------------------------------------\n");
+  printf("%s\t  %s\t %s\t\t\n","Warehouse ID","Warehouse Name","Warehouse Location");
+  printf("--------------------------------------------------------------\n");
+	while (fgets(text_store, 200, file_read) != NULL)
+	{
+		sscanf(text_store,"%d, %49[^,], %49[^,]",&warehouse_id,warehouse_name,warehouse_location);	
+
+		printf("%d\t\t  %s\t\t %s\t\t\n",warehouse_id,warehouse_name,warehouse_location);
+	}
+	fclose(file_read);
+}
+
+
 //----------------------STORE DATA IN TEXT-----------------------------
 
 void store_file() {
@@ -38,6 +63,7 @@ void store_file() {
   scanf("%d", &product.id);
   printf("Enter product Quantity: ");
   scanf("%d", &product.quantity);
+  display_warehouse_in_stock();
   printf("Enter product Warehouse_ID: ");
   scanf("%d", &product.warehouse_id);
   printf("Enter product Expire Date(2001/09/26): ");
@@ -129,9 +155,11 @@ void search_stock_by_stock_ID() {
   fclose(productTable);
 }
 
-//-----------------------------MAIN-------------------------------------
 
-int manage_stock() {
+
+//-----------------------------MAIN-------------------------------------
+//manage_stock
+int main() {
   int operation;
 
   printf("\n");
