@@ -1,1 +1,4 @@
-1 Product 1 Description 1 10.000000 101 Product 1 Description 1 10.000000 101 Product 1 Description 1 10.000000 10 
+001, apple, Fruits,120.50,50
+002, Mango, Fruits,100.50,500
+003, Grapes, Fruits,170,59
+004, Orange, Fruits,10,0
