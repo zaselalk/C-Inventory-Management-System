@@ -7,14 +7,7 @@
 
 int main() {
   system("clear");
-  // printf("Hello Welcome!\n");
-  // printf("01 - Manage Products \n");
-  // printf("02 - Managemenet Stocks \n");
-  // printf("03 - Manage Suppliers \n");
-  // printf("04 - Warehouse Management \n");
-  // printf("05 - Order Management \n");
-  // printf("06 - Seller Management \n");
-  // printf("07 - Reports \n");
+
 
   printf(ANSI_COLOR_GREEN "Hello Welcome!" ANSI_COLOR_RESET "\n");
 
@@ -34,11 +27,14 @@ int main() {
 
   switch (choice) {
   case 1:
-    printf("Manage Products\n");
+    system("clear");
+    manage_product();
+    main();
     break;
   case 2:
     system("clear");
     manage_stock();
+    main();
     break;
   case 3:
     printf("Manage Suppliers\n");
@@ -61,4 +57,16 @@ int main() {
   }
 
   return 0;
+}
+
+void print_menu() {
+  printf("+----+------------------------+\n");
+  printf("| %2d | %-22s |\n", 1, "Manage Products");
+  printf("| %2d | %-22s |\n", 2, "Management Stocks");
+  printf("| %2d | %-22s |\n", 3, "Manage Suppliers");
+  printf("| %2d | %-22s |\n", 4, "Warehouse Management");
+  printf("| %2d | %-22s |\n", 5, "Order Management");
+  printf("| %2d | %-22s |\n", 6, "Seller Management");
+  printf("| %2d | %-22s |\n", 7, "Reports");
+  printf("+----+------------------------+\n");
 }

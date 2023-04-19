@@ -11,6 +11,12 @@ typedef struct {
   char supplier_id[20];
 } Product;
 
+void clearInputBuffer() {
+  int c;
+  while ((c = getchar()) != '\n' && c != EOF)
+    ;
+}
+
 Product get_single_product(int find_id) {
 
   FILE *productTable;
@@ -48,10 +54,18 @@ int get_product_id() {
   return last_id + 1;
 }
 
+void show_single_product() {
+  int product_id;
+  printf("Enter product id: ");
+  scanf("%d", &product_id);
+  get_single_product(product_id);
+}
+
 void add_product() {
   Product product;
   FILE *productTable;
 
+  clearInputBuffer();
   printf("Enter product name: ");
   fgets(product.name, 100, stdin);
   product.name[strcspn(product.name, "\n")] = '\0'; // remove new line character
@@ -85,9 +99,9 @@ void add_product() {
     return;
   }
 
-  fprintf(productTable, "%d, %s, %s, %s, %s, %s \n", product.id,
-          product.name, product.description, product.cost_price,
-          product.selling_price, product.supplier_id );
+  fprintf(productTable, "%d, %s, %s, %s, %s, %s \n", product.id, product.name,
+          product.description, product.cost_price, product.selling_price,
+          product.supplier_id);
   fclose(productTable);
 }
 
@@ -189,12 +203,40 @@ void update_product() {
   }
 }
 
-// Error codes
-// P001 - Product creation failed - Error opening file
-// P002 - Product update failed - Error opening file
+int manage_product() {
+  int operation;
 
-// Product deletion
-//        P003 - failed to delete old file
-//        P004 - Error renaming file
-//        P005 - Error opening product table
-//        P006 - Error opening new product table
+  printf("\n");
+  printf("\033[1;34m MANAGE PRODUCTS\033[0m\n\n");
+  do {
+    printf("\033[1mOperations\033[0m\n\n");
+    printf("\033[1m-------------------------------\033[0m\n");
+    printf("1 - Add a new Product\n");
+    printf("2 - View Single Product \n");
+    printf("3 - Update Product \n");
+    printf("4 - Delete Product \n");
+    printf("5 - Back to Main menu\n");
+
+    printf("\033[1m-------------------------------\033[0m\n\n");
+    printf("Insert the operation: ");
+    scanf("%d", &operation);
+
+    switch (operation) {
+    case 1:
+      add_product();
+      break;
+    case 2:
+      show_single_product();
+      break;
+    case 3:
+      update_product();
+      break;
+    case 4:
+      delete_product();
+      break;
+    case 5:
+      break;
+    }
+  } while (operation != 5);
+  return 0;
+}
