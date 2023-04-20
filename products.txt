@@ -1,2 +1,0 @@
-1, New Item, Somthing new, 120, 180, 002 
-2, Papaya, New Fresh Papaya, 450, 56, 236 
