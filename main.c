@@ -1,3 +1,4 @@
+#include "./functions/order.c"
 #include "./functions/product.c"
 #include "./functions/seller.c"
 #include "./functions/stock.c"
@@ -43,13 +44,17 @@ int main() {
   case 4:
     printf("Warehouse Management\n");
     manage_warehouse();
+    main();
     break;
   case 5:
     printf("Order Management\n");
+    manage_orders();
+    main();
     break;
   case 6:
     printf("Seller Management\n");
     manage_sellers();
+    main();
     break;
   case 7:
     printf("Reports\n");
