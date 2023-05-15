@@ -1,5 +1,6 @@
 #include "./functions/product.c"
 #include "./functions/stock.c"
+#include "./functions/warehouse.c"
 #include <stdio.h>
 #include <stdlib.h>
 #define ANSI_COLOR_GREEN "\x1b[32m"
@@ -41,6 +42,7 @@ int main() {
     break;
   case 4:
     printf("Warehouse Management\n");
+    manage_warehouse();
     break;
   case 5:
     printf("Order Management\n");
