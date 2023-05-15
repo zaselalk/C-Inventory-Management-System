@@ -1,4 +1,5 @@
 #include "./functions/product.c"
+#include "./functions/seller.c"
 #include "./functions/stock.c"
 #include "./functions/warehouse.c"
 #include <stdio.h>
@@ -8,7 +9,6 @@
 
 int main() {
   system("clear");
-
 
   printf(ANSI_COLOR_GREEN "Hello Welcome!" ANSI_COLOR_RESET "\n");
 
@@ -49,6 +49,7 @@ int main() {
     break;
   case 6:
     printf("Seller Management\n");
+    manage_sellers();
     break;
   case 7:
     printf("Reports\n");
