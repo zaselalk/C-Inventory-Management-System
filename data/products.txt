@@ -1,4 +1,3 @@
-
 1, Apple, , 45, 56, 001 
 2, Mango, Mango, 45, 89, 002 
 3, Pineapple, new, 45, 89, 003 

@@ -133,6 +133,8 @@ void delete_product() {
     return;
   }
 
+ 
+
   Product product;
 
   char line[400];
@@ -141,11 +143,14 @@ void delete_product() {
     sscanf(line, "%d, %99[^,], %299[^,]", &product.id, product.name,
            product.description);
     if (product_id != product.id) {
-
+     
       fprintf(newProductTable, "%d, %s, %s", product.id, product.name,
               product.description);
     }
   }
+
+  fclose(newProductTable);
+  fclose(productTable);
 
   int deleteResult = remove("./data/products.txt");
   if (deleteResult != 0) {
