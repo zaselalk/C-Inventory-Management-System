@@ -2,3 +2,4 @@
 002, Mango, Fruits,100.50,500
 003, Grapes, Fruits,170,59
 004, Orange, Fruits,10,0
+5, Asb, asas, 56, 59, 895 
