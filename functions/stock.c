@@ -65,7 +65,7 @@ void display_warehouse_in_stock()
   char warehouse_location[200];
 
   FILE *file_read;
-  file_read = fopen("warehouse/wh_products.txt", "r");
+  file_read = fopen("./data/wh_products.txt", "r");
   char text_store[200];
   printf("--------------------------------------------------------------\n");
   printf("%s\t  %s\t %s\t\t\n", "Warehouse ID", "Warehouse Name",

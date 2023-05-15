@@ -5,7 +5,7 @@
 void get_txt(int warehouse_id, char *warehouse_name, char *warehouse_location)
 {
 	FILE *file_write;
-	file_write = fopen("wh_products.txt", "a");
+	file_write = fopen("./data/wh_products.txt", "a");
 	fprintf(file_write,"%d,%s,%s\n",warehouse_id,warehouse_name,warehouse_location);
 	fclose(file_write);
 }
@@ -43,7 +43,7 @@ void display_warehouse()
 	char warehouse_location[200];
 	
 	FILE *file_read;
-	file_read = fopen("wh_products.txt", "r");
+	file_read = fopen("./data/wh_products.txt", "r");
 	char text_store[200];
 	while (fgets(text_store, 200, file_read) != NULL)
 	{
@@ -56,7 +56,7 @@ void display_warehouse()
 
 void delete_warehouse(int find_id)
 {
-	FILE *warehouse_ta=fopen("wh_products.txt", "r");
+	FILE *warehouse_ta=fopen("./data/wh_products.txt", "r");
 	FILE *warehouse_tanew=fopen("wh_newproducts.txt", "w");
 
 	int warehouse_id;
@@ -81,8 +81,8 @@ void delete_warehouse(int find_id)
 
 	fclose(warehouse_ta);
 	fclose(warehouse_tanew);
-	remove("wh_products.txt");
-	rename("wh_newproducts.txt","wh_products.txt");
+	remove("./data/wh_products.txt");
+	rename("wh_newproducts.txt","./data/wh_products.txt");
 }
 
 void get_id()
@@ -95,7 +95,7 @@ void get_id()
 
 void up_id(int new_id,char *new_name,char *new_location)
 {
-	FILE *old_file=fopen("wh_products.txt", "r");
+	FILE *old_file=fopen("./data/wh_products.txt", "r");
 	FILE *up_file=fopen("wh_newproducts.txt", "w");
 
 
@@ -119,8 +119,8 @@ void up_id(int new_id,char *new_name,char *new_location)
     } 
 	fclose(old_file);
 	fclose(up_file);
-	remove("wh_products.txt");
-	rename("wh_newproducts.txt","wh_products.txt");
+	remove("./data/wh_products.txt");
+	rename("wh_newproducts.txt","./data/wh_products.txt");
 }
 void take_id()
 {
@@ -138,7 +138,7 @@ void take_id()
 	up_id(new_id, new_name, new_location);
 }
 
-int main()
+int manage_warehouse()
 {
 	int choise;
 	do
