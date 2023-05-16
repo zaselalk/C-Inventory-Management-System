@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
-#define sellerTableAddress "./data/sellers.txt"
+
 #define MAX_SELLERS 100 
 
 typedef struct Seller {
@@ -12,15 +12,14 @@ typedef struct Seller {
 
 Seller sellers[MAX_SELLERS]; 
 int numSellers = 0;      
+FILE *fp; // File pointer
 
+// Function to add a seller
 void addSeller() {
     if (numSellers >= MAX_SELLERS) {
         printf("Maximum number of sellers reached!\n");
         return;
     }
-    FILE *sellerTable;
-    sellerTable = fopen(sellerTableAddress, "r");
-
 
     Seller seller;
     printf("Enter seller ID: ");
@@ -31,10 +30,14 @@ void addSeller() {
     scanf("%f", &seller.rating);
     seller.isActive = true;
 
-    sellers[numSellers++] = seller;+- 
+    sellers[numSellers++] = seller; 
     printf("Seller added successfully.\n");
+
+    // Write seller data to file
+    fprintf(fp, "%d\t%s\t%.2f\t%d\n", seller.id, seller.name, seller.rating, seller.isActive);
 }
 
+// Function to remove a seller
 void removeSeller() {
     if (numSellers == 0) {
         printf("No sellers to remove.\n");
@@ -51,6 +54,12 @@ void removeSeller() {
             sellers[i].isActive = false; 
             found = true;
             printf("Seller removed successfully.\n");
+
+            // Update seller data in file
+            rewind(fp); // Move file pointer to the beginning
+            for (int j = 0; j < numSellers; j++) {
+                fprintf(fp, "%d\t%s\t%.2f\t%d\n", sellers[j].id, sellers[j].name, sellers[j].rating, sellers[j].isActive);
+            }
             break;
         }
     }
@@ -62,18 +71,43 @@ void removeSeller() {
 
 // Function to display active sellers
 void displayActiveSellers() {
-    printf("Active Sellers:\n");
-    printf("ID\tName\tRating\n");
+    printf("Active sellers:\n");
     for (int i = 0; i < numSellers; i++) {
         if (sellers[i].isActive) {
-            printf("%d\t%s\t%.2f\n", sellers[i].id, sellers[i].name, sellers[i].rating);
+            printf("ID: %d, Name: %s, Rating: %.2f\n", sellers[i].id, sellers[i].name, sellers[i].rating);
         }
     }
 }
 
 int main() {
-    int choice;
+    // Open file for writing
+    FILE *fp = fopen("sellers.txt", "w");
+    if (fp == NULL) {
+        printf("Error: could not open file.\n");
+        return 1;
+    }
 
+    fclose(fp);
+
+    // Open file for reading and writing
+    fp = fopen("sellers.txt", "w+");
+    if (fp == NULL) {
+        printf("Error: could not open file.\n");
+        return 1;
+    }
+
+
+
+    // Read seller data from file
+    Seller seller;
+    while (fscanf(fp, "%d%s%f%d", &seller.id, seller.name, &seller.rating, &seller.isActive) != EOF) {
+        if (seller.isActive) {
+            sellers[numSellers++] = seller;
+            
+        }
+    }
+
+    int choice;
     while (1) {
         printf("\nInventory Management System\n");
         printf("1. Add Seller\n");
@@ -93,11 +127,11 @@ int main() {
             case 3:
                 displayActiveSellers();
                 break;
-            case 4:
-                printf("Exiting...\n");
-                return 0;
-            default:
-                printf("Invalid choice! Please try again.\n");
+                
+            }
+             
         }
+        fclose(fp);
+        return 0;
+       
     }
-}
