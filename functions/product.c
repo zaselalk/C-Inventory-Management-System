@@ -34,9 +34,11 @@ Product get_single_product(int find_id) {
     sscanf(single_stock_product, "%d, %99[^,], %299[^,]", &product.id,
            product.name, product.description);
     if (find_id == product.id) {
-      printf("%d\t %s\t %s", product.id, product.name, product.description);
+      printf("%d\t %s\t \t%s", product.id, product.name, product.description);
     }
   }
+
+  printf("\n\n\n\n\n");
 }
 int get_product_id() {
   FILE *productTable;
@@ -68,6 +70,8 @@ void add_product() {
   FILE *productTable;
 
   clearInputBuffer();
+  system("clear");
+  printf("Enter New Product to the Database \n");
   printf("Enter product name: ");
   fgets(product.name, 100, stdin);
   product.name[strcspn(product.name, "\n")] = '\0'; // remove new line character
@@ -129,6 +133,8 @@ void delete_product() {
     return;
   }
 
+ 
+
   Product product;
 
   char line[400];
@@ -137,11 +143,14 @@ void delete_product() {
     sscanf(line, "%d, %99[^,], %299[^,]", &product.id, product.name,
            product.description);
     if (product_id != product.id) {
-
+     
       fprintf(newProductTable, "%d, %s, %s", product.id, product.name,
               product.description);
     }
   }
+
+  fclose(newProductTable);
+  fclose(productTable);
 
   int deleteResult = remove("./data/products.txt");
   if (deleteResult != 0) {
@@ -208,7 +217,7 @@ int manage_product() {
   printf("\n");
   printf("\033[1;34m MANAGE PRODUCTS\033[0m\n\n");
   do {
-    printf("\033[1mOperations\033[0m\n\n");
+    printf("\n\033[1mOperations\033[0m\n\n");
     printf("\033[1m-------------------------------\033[0m\n");
     printf("1 - Add a new Product\n");
     printf("2 - View Single Product \n");

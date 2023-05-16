@@ -1,5 +1,8 @@
+#include "./functions/order.c"
 #include "./functions/product.c"
+#include "./functions/seller.c"
 #include "./functions/stock.c"
+#include "./functions/warehouse.c"
 #include <stdio.h>
 #include <stdlib.h>
 #define ANSI_COLOR_GREEN "\x1b[32m"
@@ -7,7 +10,6 @@
 
 int main() {
   system("clear");
-
 
   printf(ANSI_COLOR_GREEN "Hello Welcome!" ANSI_COLOR_RESET "\n");
 
@@ -41,12 +43,18 @@ int main() {
     break;
   case 4:
     printf("Warehouse Management\n");
+    manage_warehouse();
+    main();
     break;
   case 5:
     printf("Order Management\n");
+    manage_orders();
+    main();
     break;
   case 6:
     printf("Seller Management\n");
+    manage_sellers();
+    main();
     break;
   case 7:
     printf("Reports\n");
