@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 
 typedef struct
 {
@@ -38,13 +39,13 @@ int productDetails()
     char product_line[400];
     char stock_line[400];
 
-    printf("--------------------------------------------------------------------------------------------\n");
+    printf("---------------------------------------------------------------------------\n");
     printf("%s\t %s\t\t %s\t\t %s\t %s\n", "Id", "Name", "Description", "Selling Price", "Quantity");
-    printf("---\t ---\t\t ---\t\t\t ---\t ---\n");
+    printf("---\t ---\t\t ---\t\t\t ---\t\t ---\n");
 
     while (fgets(product_line, sizeof(product_line), productTable) != NULL)
     {
-        sscanf(product_line, "%d, %99[^,], %299[^,], %19[^,], %19[^,], %19[^,],", &product.id, product.name, product.description, &product.cost_price, &product.selling_price, &product.supplier_id);
+        sscanf(product_line, "%d, %99[^,], %299[^,], %19[^,], %s, %s", &product.id, product.name, product.description, &product.cost_price, &product.selling_price);
         int total_quentity = 0;
         rewind(stockTable);
         while (fgets(stock_line, sizeof(stock_line), stockTable) != NULL)
@@ -55,7 +56,7 @@ int productDetails()
                 total_quentity += stock.quantity;
             }
         }
-        printf("%d\t %s\t\t %s\t\t\t %.2f\t %d\n", product.id, product.name, product.description, product.selling_price, total_quentity);
+        printf("%d\t %s\t\t %s\t\t\t %s\t\t %d\n", product.id, product.name, product.description, product.selling_price, total_quentity);
     }
 
     fclose(productTable);
@@ -203,7 +204,7 @@ void get_most_searched_product()
     fclose(searchLogTable);
     fclose(searchIdLogTable);
 }
-// Get low stoch products
+// Get low stock products
 int get_low_stock_products()
 {
     FILE *productTable;
@@ -220,13 +221,13 @@ int get_low_stock_products()
     char product_line[400];
     char stock_line[400];
 
-    printf("--------------------------------------------------------------------------------------------\n");
-    printf("%s\t %s\t\t %s\t\t %s\t %s\n", "Id", "Name", "Description", "Selling Price", "Quantity");
-    printf("---\t ---\t\t ---\t\t\t ---\t ---\n");
+    printf("-----------------------------------------------------------------\n");
+    printf("%s\t %s\t\t %s\t\t %s\n", "Id", "Name", "Description", "Quantity Left");
+    printf("---\t ---\t\t ---\t\t\t ------\n");
 
     while (fgets(product_line, sizeof(product_line), productTable) != NULL)
     {
-        sscanf(product_line, "%d, %99[^,], %299[^,], %19[^,], %19[^,], %19[^,],", &product.id, product.name, product.description, &product.cost_price, &product.selling_price, &product.supplier_id);
+        sscanf(product_line, "%d, %99[^,], %299[^,], %19[^,], %19[^,]", &product.id, product.name, product.description, &product.cost_price, &product.selling_price);
         int total_quentity = 0;
         rewind(stockTable);
         while (fgets(stock_line, sizeof(stock_line), stockTable) != NULL)
@@ -239,7 +240,7 @@ int get_low_stock_products()
         }
         if (total_quentity <= 10)
         {
-            printf("%d\t %s\t\t %s\t\t\t %.2f\t %d\n", product.id, product.name, product.description, product.selling_price, total_quentity);
+            printf("%d\t %s\t\t %s\t\t\t %d\n", product.id, product.name, product.description, total_quentity);
         }
     }
 
@@ -248,31 +249,61 @@ int get_low_stock_products()
 }
 
 // List expiring products
-void get_expiring_items()
+int get_expiring_items()
 {
     FILE *productTable;
-    productTable = fopen("products.txt", "r");
+    productTable = fopen("../../data/products.txt", "r");
+    FILE *stockTable;
+    stockTable = fopen("../../data/stock.txt", "r");
+    if (productTable == NULL || stockTable == NULL)
+    {
+        return 1;
+    }
+
     Product product;
     Stock stock;
-    char line[400];
-    printf("%s\t %s\t\t %s\t\t %s\t %s\n", "Id", "Name", "Description", "Price", "Expiry Date");
-    printf("--\t --\t\t --\t\t --\t --\n");
+    char product_line[400];
+    char stock_line[400];
 
-    while (fgets(line, sizeof(line), productTable) != NULL)
+    // get the current date
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+
+    printf("-----------------------------------------------------------------\n");
+    printf("%s\t %s\t\t %s\t\t %s\n", "Id", "Name", "Description", "Days Left to expire");
+    printf("---\t ---\t\t ---\t\t\t ------\n");
+
+    while (fgets(product_line, sizeof(product_line), productTable) != NULL)
     {
-        sscanf(line, "%d, %99[^,], %299[^,], %f, %d", &product.id, product.name,
-               product.description, &product.selling_price, &stock.quantity);
-        if (stock.quantity > 0)
+        sscanf(product_line, "%d, %99[^,], %299[^,], %19[^,], %19[^,]", &product.id, product.name, product.description, &product.cost_price, &product.selling_price);
+        rewind(stockTable);
+        while (fgets(stock_line, sizeof(stock_line), stockTable) != NULL)
         {
-            printf("%d\t %s\t %s\t %.2f\t %s\n", product.id, product.name, product.description, product.selling_price, "30/06/2022");
+            sscanf(stock_line, "%d,%d,%d,%d,%s", &stock.st_id, &stock.id, &stock.quantity, &stock.warehouse_id, stock.expire_date);
+            if (product.id == stock.id)
+            {
+                int year, month, day;
+                if (sscanf(stock.expire_date, "%d/%d/%d", &year, &month, &day) == 3)
+                {
+                    struct tm expire_tm = {0};
+                    expire_tm.tm_year = year - 1900;
+                    expire_tm.tm_mon = month - 1;
+                    expire_tm.tm_mday = day;
+                    time_t expire_t = mktime(&expire_tm);
+                    double diff = difftime(expire_t, t);
+                    int days_left = (int)(diff / (24 * 60 * 60));
+                    if (days_left <= 50)
+                    {
+                        printf("%d\t %s\t\t %s\t\t\t %d\n", product.id, product.name, product.description, days_left);
+                    }
+                }
+            }
         }
     }
-    fclose(productTable);
-}
 
-// sales profit
-void view_sales_profit()
-{
+    fclose(productTable);
+    fclose(stockTable);
+    return 0;
 }
 
 int main()
