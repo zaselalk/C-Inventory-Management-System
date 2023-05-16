@@ -16,10 +16,6 @@ FILE *fp; // File pointer
 
 // Function to add a seller
 void addSeller() {
-    if (numSellers >= MAX_SELLERS) {
-        printf("Maximum number of sellers reached!\n");
-        return;
-    }
 
     Seller seller;
     printf("Enter seller ID: ");
@@ -79,7 +75,7 @@ void displayActiveSellers() {
     }
 }
 
-int main() {
+int manage_sellers() {
     // Open file for writing
     FILE *fp = fopen("sellers.txt", "w");
     if (fp == NULL) {
