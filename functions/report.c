@@ -26,9 +26,9 @@ typedef struct
 int productDetails()
 {
     FILE *productTable;
-    productTable = fopen("../../data/products.txt", "r");
+    productTable = fopen("../data/products.txt", "r");
     FILE *stockTable;
-    stockTable = fopen("../../data/stock.txt", "r");
+    stockTable = fopen("../data/stock.txt", "r");
     if (productTable == NULL || stockTable == NULL)
     {
         return 1;
@@ -67,9 +67,9 @@ int productDetails()
 void get_most_searched_product()
 {
     FILE *searchLogTable;
-    searchLogTable = fopen("../../data/search_log.txt", "r");
+    searchLogTable = fopen("../data/search_log.txt", "r");
     FILE *searchIdLogTable;
-    searchIdLogTable = fopen("../../data/search_by_id_log.txt", "r");
+    searchIdLogTable = fopen("../data/search_by_id_log.txt", "r");
     if (searchLogTable == NULL || searchIdLogTable == NULL)
     {
         printf("Couldn't open");
@@ -208,9 +208,9 @@ void get_most_searched_product()
 int get_low_stock_products()
 {
     FILE *productTable;
-    productTable = fopen("../../data/products.txt", "r");
+    productTable = fopen("../data/products.txt", "r");
     FILE *stockTable;
-    stockTable = fopen("../../data/stock.txt", "r");
+    stockTable = fopen("../data/stock.txt", "r");
     if (productTable == NULL || stockTable == NULL)
     {
         return 1;
@@ -252,9 +252,9 @@ int get_low_stock_products()
 int get_expiring_items()
 {
     FILE *productTable;
-    productTable = fopen("../../data/products.txt", "r");
+    productTable = fopen("../data/products.txt", "r");
     FILE *stockTable;
-    stockTable = fopen("../../data/stock.txt", "r");
+    stockTable = fopen("../data/stock.txt", "r");
     if (productTable == NULL || stockTable == NULL)
     {
         return 1;
