@@ -1,3 +1,10 @@
+<<<<<<< HEAD
+001, apple, Fruits, 120.50, 50
+002, Mango, Fruits, 100.50, 500
+003, Grapes, Fruits, 170, 59
+004, Orange, Fruits, 10, 0
+=======
 1, Apple, , 45, 56, 001 
 2, Mango, Mango, 45, 89, 002 
 3, Pineapple, new, 45, 89, 003 
+>>>>>>> 704760a70cc94f5d768e86d97b09b2ff66bb0aae
