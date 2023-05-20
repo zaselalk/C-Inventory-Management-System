@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "./types/structures.c"
-#include "./functions/order.c"
 #include "./functions/product.c"
 #include "./functions/seller.c"
 #include "./functions/stock.c"
@@ -21,9 +20,8 @@ int main() {
   printf("| %2d | %-22s |\n", 2, "Management Stocks");
   printf("| %2d | %-22s |\n", 3, "Manage Suppliers");
   printf("| %2d | %-22s |\n", 4, "Warehouse Management");
-  printf("| %2d | %-22s |\n", 5, "Order Management");
-  printf("| %2d | %-22s |\n", 6, "Seller Management");
-  printf("| %2d | %-22s |\n", 7, "Reports");
+  printf("| %2d | %-22s |\n", 5, "Seller Management");
+  printf("| %2d | %-22s |\n", 6, "Reports");
   printf("+----+------------------------+\n");
 
   int choice;
@@ -48,16 +46,11 @@ int main() {
     main();
     break;
   case 5:
-    printf("Order Management\n");
-    manage_orders();
-    main();
-    break;
-  case 6:
     printf("Seller Management\n");
     manage_sellers();
     main();
     break;
-  case 7:
+  case 6:
     manage_reports();
      main();
     break;
