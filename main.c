@@ -12,9 +12,7 @@
 
 int main() {
 
-
   printf(ANSI_COLOR_GREEN "Hello Welcome!" ANSI_COLOR_RESET "\n");
-
   printf("+----+------------------------+\n");
   printf("| %2d | %-22s |\n", 1, "Manage Products");
   printf("| %2d | %-22s |\n", 2, "Management Stocks");
@@ -41,12 +39,10 @@ int main() {
     printf("Manage Suppliers\n");
     break;
   case 4:
-    printf("Warehouse Management\n");
     manage_warehouse();
     main();
     break;
   case 5:
-    printf("Seller Management\n");
     manage_sellers();
     main();
     break;
