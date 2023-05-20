@@ -58,9 +58,29 @@ void show_single_product() {
   get_single_product(product_id);
 }
 
+void show_suppliers(){
+  char line[400];
+  FILE *supplier_table;
+  Supplier supplier;
+  supplier_table = fopen("./data/suppliers.txt","r");
+
+  fprintf("All Suppliers \n")
+
+  while(fgets(line,sizeof(line),supplier_table) != NULL){
+        sscanf(line, "%d, %99[^,], %12[^,]", &supplier.id, supplier.name,
+           &supplier.contact_number);
+  
+        printf("%d, %s, %.2f \n",supplier.id,supplier.name,supplier.contact_number);
+    }
+
+  fclose(supplier_table);
+}
+
 void add_product() {
   Product product;
   FILE *productTable;
+
+
 
   clearInputBuffer();
   system("clear");
@@ -69,22 +89,26 @@ void add_product() {
   
   printf("Enter product name: ");
   fgets(product.name, 100, stdin);
-  product.name[strcspn(product.name, "\n")] = '\0'; // remove new line character
+  product.name[strcspn(product.name, "\n")] = '\0'; 
 
   printf("Enter product description: ");
   fgets(product.description, 300, stdin);
   product.description[strcspn(product.description, "\n")] =
-      '\0'; // remove new line character
+      '\0'; 
 
   printf("Enter product cost price: ");
   fgets(product.cost_price, 20, stdin);
   product.cost_price[strcspn(product.cost_price, "\n")] =
-      '\0'; // remove new line character
+      '\0'; 
 
   printf("Enter product selling price: ");
   fgets(product.selling_price, 20, stdin);
   product.selling_price[strcspn(product.selling_price, "\n")] =
       '\0'; // remove new line character
+
+  //load supplier data
+   show_suppliers();
+
 
   printf("Enter product supplier id: ");
   fgets(product.supplier_id, 20, stdin);

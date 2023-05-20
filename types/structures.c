@@ -21,3 +21,9 @@ typedef struct Seller {
     char name[100];          
     float rating;                  
 } Seller;
+
+typedef struct Supplier {
+    int id;               
+    char name[100];          
+    char contact_number[12];                 
+} Supplier;
