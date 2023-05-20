@@ -316,19 +316,23 @@ int manage_reports()
     switch (operation)
     {
     case 1:
+        system("clear");
         productDetails();
         break;
     case 2:
+        system("clear");
         get_most_searched_product();
         break;
     case 3:
+        system("clear");
         get_low_stock_products();
         break;
     case 4:
+        system("clear");
         get_expiring_items();
         break;
-        break;
     case 5:
+        system("clear");
         break;
 
     }
