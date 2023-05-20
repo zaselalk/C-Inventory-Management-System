@@ -15,3 +15,9 @@ typedef struct
     int warehouse_id;
     char expire_date[20];
 } Stock;
+
+typedef struct Seller {
+    int id;               
+    char name[100];          
+    float rating;                  
+} Seller;
