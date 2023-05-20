@@ -6,6 +6,7 @@
 #include "./functions/stock.c"
 #include "./functions/warehouse.c"
 #include "./functions/report.c"
+#include "./functions/supplier.c"
 
 #define ANSI_COLOR_GREEN "\x1b[32m"
 #define ANSI_COLOR_RESET "\x1b[0m"
@@ -36,7 +37,7 @@ int main() {
     main();
     break;
   case 3:
-    printf("Manage Suppliers\n");
+    manage_suppliers();
     break;
   case 4:
     manage_warehouse();
