@@ -4,7 +4,6 @@
 #define productTableAddress "./data/products.txt"
 
 
-
 void clearInputBuffer() {
   int c;
   while ((c = getchar()) != '\n' && c != EOF)
@@ -64,7 +63,7 @@ void show_suppliers(){
   Supplier supplier;
   supplier_table = fopen("./data/suppliers.txt","r");
 
-  fprintf("All Suppliers \n")
+  printf("All Suppliers \n");
 
   while(fgets(line,sizeof(line),supplier_table) != NULL){
         sscanf(line, "%d, %99[^,], %12[^,]", &supplier.id, supplier.name,
