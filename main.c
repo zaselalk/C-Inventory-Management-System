@@ -6,15 +6,14 @@
 #include "./functions/stock.c"
 #include "./functions/warehouse.c"
 #include "./functions/report.c"
+#include "./functions/supplier.c"
 
 #define ANSI_COLOR_GREEN "\x1b[32m"
 #define ANSI_COLOR_RESET "\x1b[0m"
 
 int main() {
 
-
   printf(ANSI_COLOR_GREEN "Hello Welcome!" ANSI_COLOR_RESET "\n");
-
   printf("+----+------------------------+\n");
   printf("| %2d | %-22s |\n", 1, "Manage Products");
   printf("| %2d | %-22s |\n", 2, "Management Stocks");
@@ -38,15 +37,13 @@ int main() {
     main();
     break;
   case 3:
-    printf("Manage Suppliers\n");
+    manage_suppliers();
     break;
   case 4:
-    printf("Warehouse Management\n");
     manage_warehouse();
     main();
     break;
   case 5:
-    printf("Seller Management\n");
     manage_sellers();
     main();
     break;
