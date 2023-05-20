@@ -3,32 +3,13 @@
 #include <stdlib.h>
 #include <time.h>
 
-typedef struct
-{
-    int id;
-    char name[100];
-    char description[300];
-    char cost_price[20];
-    char selling_price[20];
-    char supplier_id[20];
-} Product;
-
-typedef struct
-{
-    int st_id;
-    int id;
-    int quantity;
-    int warehouse_id;
-    char expire_date[20];
-} Stock;
-
 // List all product
 int productDetails()
 {
     FILE *productTable;
-    productTable = fopen("../data/products.txt", "r");
+    productTable = fopen("./data/products.txt", "r");
     FILE *stockTable;
-    stockTable = fopen("../data/stock.txt", "r");
+    stockTable = fopen("./data/stock.txt", "r");
     if (productTable == NULL || stockTable == NULL)
     {
         return 1;
@@ -67,9 +48,9 @@ int productDetails()
 void get_most_searched_product()
 {
     FILE *searchLogTable;
-    searchLogTable = fopen("../data/search_log.txt", "r");
+    searchLogTable = fopen("./data/search_log.txt", "r");
     FILE *searchIdLogTable;
-    searchIdLogTable = fopen("../data/search_by_id_log.txt", "r");
+    searchIdLogTable = fopen("./data/search_by_id_log.txt", "r");
     if (searchLogTable == NULL || searchIdLogTable == NULL)
     {
         printf("Couldn't open");
@@ -208,9 +189,9 @@ void get_most_searched_product()
 int get_low_stock_products()
 {
     FILE *productTable;
-    productTable = fopen("../data/products.txt", "r");
+    productTable = fopen("./data/products.txt", "r");
     FILE *stockTable;
-    stockTable = fopen("../data/stock.txt", "r");
+    stockTable = fopen("./data/stock.txt", "r");
     if (productTable == NULL || stockTable == NULL)
     {
         return 1;
@@ -252,9 +233,9 @@ int get_low_stock_products()
 int get_expiring_items()
 {
     FILE *productTable;
-    productTable = fopen("../data/products.txt", "r");
+    productTable = fopen("./data/products.txt", "r");
     FILE *stockTable;
-    stockTable = fopen("../data/stock.txt", "r");
+    stockTable = fopen("./data/stock.txt", "r");
     if (productTable == NULL || stockTable == NULL)
     {
         return 1;
@@ -306,11 +287,12 @@ int get_expiring_items()
     return 0;
 }
 
-int main()
+int manage_reports()
 {
     int operation;
 
-    printf("\n");
+    do{
+ printf("\n");
     printf("\033[1;34mREPORT\033[0m\n\n");
     printf("\033[1mOperations\033[0m\n\n");
     printf("\033[1m-------------------------------\033[0m\n");
@@ -338,8 +320,11 @@ int main()
         get_expiring_items();
         break;
     case 5:
-        view_sales_profit();
+        // view_sales_profit();
         break;
     }
+    } while(true);
+
+   
     return 0;
 }

@@ -1,15 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-typedef struct {
-  int id;
-  char name[100];
-  char description[300];
-  int quantity;
-  int warehouse_id;
-  char expire_date[20];
-  int st_id;
-} Stock;
 
 int manage_stock();
 
@@ -20,7 +11,7 @@ void display_product_in_stock() {
   FILE *productTable;
   productTable = fopen("./data/products.txt", "r");
 
-  Stock product;
+  Product product;
   char single_stock_product[400];
   printf("--------------------------------------\n");
   printf("%s\t %s\t\t %s\t\t\n", "Id", "Name", "Description");

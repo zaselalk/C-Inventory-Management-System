@@ -1,15 +1,19 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+#include "./types/structures.c"
 #include "./functions/order.c"
 #include "./functions/product.c"
 #include "./functions/seller.c"
 #include "./functions/stock.c"
 #include "./functions/warehouse.c"
-#include <stdio.h>
-#include <stdlib.h>
+#include "./functions/report.c"
+
 #define ANSI_COLOR_GREEN "\x1b[32m"
 #define ANSI_COLOR_RESET "\x1b[0m"
 
 int main() {
-  system("clear");
+
 
   printf(ANSI_COLOR_GREEN "Hello Welcome!" ANSI_COLOR_RESET "\n");
 
@@ -29,12 +33,10 @@ int main() {
 
   switch (choice) {
   case 1:
-    system("clear");
     manage_product();
     main();
     break;
   case 2:
-    system("clear");
     manage_stock();
     main();
     break;
@@ -57,7 +59,8 @@ int main() {
     main();
     break;
   case 7:
-    printf("Reports\n");
+    manage_reports();
+     main();
     break;
   default:
     printf("Invalid choice\n");
