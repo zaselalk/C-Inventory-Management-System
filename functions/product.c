@@ -61,15 +61,15 @@ void show_suppliers(){
   char line[400];
   FILE *supplier_table;
   Supplier supplier;
-  supplier_table = fopen("./data/suppliers.txt","r");
+  supplier_table = fopen("./data/supplier.txt","r");
 
   printf("All Suppliers \n");
 
   while(fgets(line,sizeof(line),supplier_table) != NULL){
         sscanf(line, "%d, %99[^,], %12[^,]", &supplier.id, supplier.name,
-           &supplier.contact_number);
+           supplier.contact_number);
   
-        printf("%d, %s, %.2f \n",supplier.id,supplier.name,supplier.contact_number);
+        printf("%d, %s, %s \n",supplier.id,supplier.name,supplier.contact_number);
     }
 
   fclose(supplier_table);
@@ -231,7 +231,7 @@ void update_product() {
 
 int manage_product() {
   int operation;
-
+  system("clear");
   printf("\n");
   printf("\033[1;34m MANAGE PRODUCTS\033[0m\n\n");
   do {
@@ -249,15 +249,19 @@ int manage_product() {
 
     switch (operation) {
     case 1:
+      system("clear");
       add_product();
       break;
     case 2:
+      system("clear");
       show_single_product();
       break;
     case 3:
+      system("clear");
       update_product();
       break;
     case 4:
+      system("clear");
       delete_product();
       break;
     case 5:

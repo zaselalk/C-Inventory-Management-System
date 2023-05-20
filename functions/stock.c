@@ -185,7 +185,7 @@ void search_stock_by_stock_ID() {
 //-----------------------------MAIN-------------------------------------
 int manage_stock() {
   int operation;
-
+ system("clear");
   printf("\n");
   printf("\033[1;34mSTOCK MANAGEMENT\033[0m\n\n");
   do {

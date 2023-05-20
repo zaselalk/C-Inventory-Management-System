@@ -297,7 +297,8 @@ int manage_reports()
     int operation;
 
     do{
- printf("\n");
+   
+    printf("\n");
     printf("\033[1;34mREPORT\033[0m\n\n");
     printf("\033[1mOperations\033[0m\n\n");
     printf("\033[1m-------------------------------\033[0m\n");

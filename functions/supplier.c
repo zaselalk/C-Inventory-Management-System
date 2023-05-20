@@ -35,7 +35,7 @@ void add_supplier() {
 
 
     printf("Enter seller contact number: ");
-    fgets(supplier.contact_number, 100, stdin);
+    fgets(supplier.contact_number, 12, stdin);
     supplier.contact_number[strcspn(supplier.contact_number, "\n")] = '\0'; 
 
     fprintf(supplier_table, "%d, %s, %s \n", supplier.id, supplier.name, supplier.contact_number);
@@ -64,7 +64,7 @@ void remove_supplier() {
 
  while (fgets(line, sizeof(line), supplier_table) != NULL) {
     sscanf(line, "%d, %99[^,], %12[^,]", &supplier.id, supplier.name,
-           &supplier.contact_number);
+           supplier.contact_number);
     if (supplierId != supplier.id) {
       fprintf(new_supplier_table, "%d, %s, %s\n", supplier.id, supplier.name,
               supplier.contact_number);
@@ -105,7 +105,7 @@ void display_all_suppliers() {
 
 int manage_suppliers() {
 
-
+    system("clear");
     int choice;
     do {
         printf("\nInventory Management System\n");
