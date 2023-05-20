@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <stdlib.h>
-
 #include "./types/structures.c"
 #include "./functions/order.c"
 #include "./functions/product.c"
