@@ -30,7 +30,7 @@ int productDetails()
 
     while (fgets(product_line, sizeof(product_line), productTable) != NULL)
     {
-        sscanf(product_line, "%d, %99[^,], %299[^,], %19[^,], %s, %s", &product.id, product.name, product.description, &product.cost_price, &product.selling_price);
+        sscanf(product_line, "%d, %20[^,], %30[^,], %20[^,], %20[^,]", &product.id, product.name, product.description, product.cost_price, product.selling_price);
         int total_quentity = 0;
         rewind(stockTable);
         while (fgets(stock_line, sizeof(stock_line), stockTable) != NULL)
@@ -41,7 +41,7 @@ int productDetails()
                 total_quentity += stock.quantity;
             }
         }
-        printf("%d\t"red"|"white"\t%s\t"red"|"white"\t\t%s\t"red"|"white"\t\t%s\t"red"|"white"\t%d\n", product.id, product.name, product.description, product.selling_price, total_quentity);
+        printf("%d\t"red"|"white"\t%s\t"red"|"white"\t%s\t\t"red"|"white"\t%s\t\t%d\n", product.id, product.name, product.description, product.selling_price, total_quentity);
     }
 
     fclose(productTable);
@@ -212,7 +212,7 @@ int get_low_stock_products()
 
     while (fgets(product_line, sizeof(product_line), productTable) != NULL)
     {
-        sscanf(product_line, "%d, %99[^,], %299[^,], %19[^,], %19[^,]", &product.id, product.name, product.description, &product.cost_price, &product.selling_price);
+        sscanf(product_line, "%d, %99[^,], %299[^,], %19[^,], %19[^,]", &product.id, product.name, product.description, product.cost_price, product.selling_price);
         int total_quentity = 0;
         rewind(stockTable);
         while (fgets(stock_line, sizeof(stock_line), stockTable) != NULL)
@@ -260,7 +260,7 @@ int get_expiring_items()
     printf(red"--------------------------------------------------------------------------------------------"white"\n");
     while (fgets(product_line, sizeof(product_line), productTable) != NULL)
     {
-        sscanf(product_line, "%d, %99[^,], %299[^,], %19[^,], %19[^,]", &product.id, product.name, product.description, &product.cost_price, &product.selling_price);
+        sscanf(product_line, "%d, %99[^,], %299[^,], %19[^,], %19[^,]", &product.id, product.name, product.description, product.cost_price, product.selling_price);
         rewind(stockTable);
         while (fgets(stock_line, sizeof(stock_line), stockTable) != NULL)
         {
@@ -277,7 +277,7 @@ int get_expiring_items()
                     time_t expire_t = mktime(&expire_tm);
                     double diff = difftime(expire_t, t);
                     int days_left = (int)(diff / (24 * 60 * 60));
-                    if (days_left <= 50)
+                    if (days_left <= 90)
                     {
                         printf("%d\t %s\t\t %s\t\t\t %d\n", product.id, product.name, product.description, days_left);
                     }
