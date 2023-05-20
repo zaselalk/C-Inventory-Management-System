@@ -30,26 +30,33 @@ int main() {
   switch (choice) {
   case 1:
     manage_product();
+      system("clear");
     main();
     break;
   case 2:
     manage_stock();
+      system("clear");
     main();
     break;
   case 3:
     manage_suppliers();
+      system("clear");
+    main();
     break;
   case 4:
     manage_warehouse();
+      system("clear");
     main();
     break;
   case 5:
     manage_sellers();
+      system("clear");
     main();
     break;
   case 6:
     manage_reports();
-     main();
+      system("clear");
+    main();
     break;
   default:
     printf("Invalid choice\n");
