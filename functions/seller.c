@@ -1,22 +1,33 @@
 #include <stdio.h>
 
-typedef struct Seller {
-    int id;               
-    char name[100];          
-    float rating;                  
-} Seller;
+int get_seller_id() {
+  FILE *seller_table;
+  seller_table = fopen("./data/sellers.txt", "r");
+
+  if (seller_table == NULL) {
+    return 1;
+  }
+
+  int last_id = 0;
+  char line[400];
+
+  while (fgets(line, sizeof(line), seller_table) != NULL) {
+    sscanf(line, "%d", &last_id);
+  }
+
+  return last_id + 1;
+}
 
 
 void addSeller() {
     FILE *sellerTable; 
-    sellerTable = fopen("./data/sellers.txt","w");
+    sellerTable = fopen("./data/sellers.txt","a");
+    Seller seller;
 
     clearInputBuffer();
     system("clear");
 
-    Seller seller;
-    printf("Enter seller ID: ");
-    scanf("%d", &seller.id);
+    seller.id = get_seller_id();
 
     printf("Enter seller name: ");
     fgets(seller.name, 100, stdin);
@@ -26,7 +37,7 @@ void addSeller() {
     printf("Enter seller rating: ");
     scanf("%f", &seller.rating);
 
-    fprintf(sellerTable, "%d, %s, %.2f", seller.id, seller.name, seller.rating);
+    fprintf(sellerTable, "%d, %s, %.2f \n", seller.id, seller.name, seller.rating);
     fclose(sellerTable);
 }
 
@@ -51,11 +62,10 @@ void removeSeller() {
 
 
  while (fgets(line, sizeof(line), seller_table) != NULL) {
-    sscanf(line, "%d, %s, %.2f", &seller.id, seller.name,
+    sscanf(line, "%d, %99[^,], %f", &seller.id, seller.name,
            &seller.rating);
     if (sellerId != seller.id) {
-     
-      fprintf(new_seller_table, "%d, %s, %f", seller.id, seller.name,
+      fprintf(new_seller_table, "%d, %s, %.2f\n", seller.id, seller.name,
               seller.rating);
     }
   }
@@ -68,7 +78,7 @@ void removeSeller() {
     printf("Product update failed! Please try again Error Code : P003");
   }
 
-  int renameResult = rename("./data/new_sellers.txt", "./data/products.txt");
+  int renameResult = rename("./data/new_sellers.txt", "./data/sellers.txt");
   if (renameResult != 0) {
     printf("Product update failed! Please try again Error Code : P004");
   }
@@ -79,14 +89,16 @@ void removeSeller() {
 // Function to display active sellers
 void displayAllSellers() {
     FILE *seller_table;
-    seller_table = fopen("./data/sellers/txt","r");
+    seller_table = fopen("./data/sellers.txt","r");
     char line[400];
     Seller seller;
-    
-    while(fgets(line,sizeof(line),seller_table) == NULL){
-        sscanf(line, "%d, %s, %f", &seller.id, seller.name,
+
+    printf("Seller Id | Seller Name | Seller rating\n");
+    while(fgets(line,sizeof(line),seller_table) != NULL){
+        sscanf(line, "%d, %99[^,], %f", &seller.id, seller.name,
            &seller.rating);
-        printf("%d, %s, %.2f",seller.id,seller.name,seller.rating);
+  
+        printf("%d, %s, %.2f \n",seller.id,seller.name,seller.rating);
     }
 }
 
@@ -94,7 +106,7 @@ int manage_sellers() {
 
 
     int choice;
-    while (1) {
+    do {
         printf("\nInventory Management System\n");
         printf("1. Add Seller\n");
         printf("2. Remove Seller\n");
@@ -113,9 +125,11 @@ int manage_sellers() {
             case 3:
                 displayAllSellers();
                 break;
-            }             
+                       
         }
      
-        return 0;
        
-    }
+    } while(1);
+    return 0;
+
+}

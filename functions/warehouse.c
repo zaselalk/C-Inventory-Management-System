@@ -106,7 +106,7 @@ void up_id(int new_id,char *new_name,char *new_location)
 
 	 while (fgets(content, 400, old_file) != NULL)
     {
-        sscanf(content, "%d, %[^,], %[^,]", &warehouse_id, warehouse_id, warehouse_location);
+        sscanf(content, "%d, %[^,], %[^,]", &warehouse_id, warehouse_name, warehouse_location);
 
         if (new_id == warehouse_id)
         {
@@ -140,6 +140,7 @@ void take_id()
 
 int manage_warehouse()
 {
+	system("clear");
 	int choise;
 	do
 	{

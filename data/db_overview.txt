@@ -26,12 +26,6 @@
     - warehouse_name - name per warehouse
     - warehouse_location - location of a warehouse
 
-# order_table
-    - Id  - unique Id per each order
-    - order_date - date of order
-    - product_id - product of that order
-    - quentity - quentity of order
-    - seller_id - id of seller who take the order
 
 # seller_table
     - Id - unique id per each seller

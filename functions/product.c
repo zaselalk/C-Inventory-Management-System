@@ -3,14 +3,6 @@
 #include <string.h>
 #define productTableAddress "./data/products.txt"
 
-// typedef struct {
-//   int id;
-//   char name[100];
-//   char description[300];
-//   char cost_price[20];
-//   char selling_price[20];
-//   char supplier_id[20];
-// } Product;
 
 void clearInputBuffer() {
   int c;
@@ -65,9 +57,29 @@ void show_single_product() {
   get_single_product(product_id);
 }
 
+void show_suppliers(){
+  char line[400];
+  FILE *supplier_table;
+  Supplier supplier;
+  supplier_table = fopen("./data/supplier.txt","r");
+
+  printf("All Suppliers \n");
+
+  while(fgets(line,sizeof(line),supplier_table) != NULL){
+        sscanf(line, "%d, %99[^,], %12[^,]", &supplier.id, supplier.name,
+           supplier.contact_number);
+  
+        printf("%d, %s, %s \n",supplier.id,supplier.name,supplier.contact_number);
+    }
+
+  fclose(supplier_table);
+}
+
 void add_product() {
   Product product;
   FILE *productTable;
+
+
 
   clearInputBuffer();
   system("clear");
@@ -76,22 +88,26 @@ void add_product() {
   
   printf("Enter product name: ");
   fgets(product.name, 100, stdin);
-  product.name[strcspn(product.name, "\n")] = '\0'; // remove new line character
+  product.name[strcspn(product.name, "\n")] = '\0'; 
 
   printf("Enter product description: ");
   fgets(product.description, 300, stdin);
   product.description[strcspn(product.description, "\n")] =
-      '\0'; // remove new line character
+      '\0'; 
 
   printf("Enter product cost price: ");
   fgets(product.cost_price, 20, stdin);
   product.cost_price[strcspn(product.cost_price, "\n")] =
-      '\0'; // remove new line character
+      '\0'; 
 
   printf("Enter product selling price: ");
   fgets(product.selling_price, 20, stdin);
   product.selling_price[strcspn(product.selling_price, "\n")] =
       '\0'; // remove new line character
+
+  //load supplier data
+   show_suppliers();
+
 
   printf("Enter product supplier id: ");
   fgets(product.supplier_id, 20, stdin);
@@ -215,7 +231,7 @@ void update_product() {
 
 int manage_product() {
   int operation;
-
+  system("clear");
   printf("\n");
   printf("\033[1;34m MANAGE PRODUCTS\033[0m\n\n");
   do {
@@ -233,15 +249,19 @@ int manage_product() {
 
     switch (operation) {
     case 1:
+      system("clear");
       add_product();
       break;
     case 2:
+      system("clear");
       show_single_product();
       break;
     case 3:
+      system("clear");
       update_product();
       break;
     case 4:
+      system("clear");
       delete_product();
       break;
     case 5:
