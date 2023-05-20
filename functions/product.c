@@ -71,7 +71,9 @@ void add_product() {
 
   clearInputBuffer();
   system("clear");
+
   printf("Enter New Product to the Database \n");
+  
   printf("Enter product name: ");
   fgets(product.name, 100, stdin);
   product.name[strcspn(product.name, "\n")] = '\0'; // remove new line character

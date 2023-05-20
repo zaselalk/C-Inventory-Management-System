@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include <time.h>
+#include <stdbool.h>
 
 #define red "\e[0;31m"
 #define white "\e[0;37m"
