@@ -327,14 +327,12 @@ int manage_reports()
     case 4:
         get_expiring_items();
         break;
-    case 5:
-        // view_sales_profit();
         break;
-    case 6:
+    case 5:
         break;
 
     }
-    } while(operation != 6);
+    } while(operation != 5);
 
    
     return 0;
