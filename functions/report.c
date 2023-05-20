@@ -3,6 +3,9 @@
 #include <stdlib.h>
 #include <time.h>
 
+#define red "\e[0;31m"
+#define white "\e[0;37m"
+
 // List all product
 int productDetails()
 {
@@ -20,9 +23,9 @@ int productDetails()
     char product_line[400];
     char stock_line[400];
 
-    printf("---------------------------------------------------------------------------\n");
-    printf("%s\t %s\t\t %s\t\t %s\t %s\n", "Id", "Name", "Description", "Selling Price", "Quantity");
-    printf("---\t ---\t\t ---\t\t\t ---\t\t ---\n");
+    printf(red"----------------------------------------------------------------------------------------------------"white"\n");
+    printf("%s\t"red"|"white"\t%s\t"red"|"white"\t%s\t"red"|"white"\t%s\t"red"|"white"\t%s\n", "Id", "Name", "Description", "Selling Price", "Quantity");
+    printf(red"----------------------------------------------------------------------------------------------------"white"\n");
 
     while (fgets(product_line, sizeof(product_line), productTable) != NULL)
     {
@@ -37,7 +40,7 @@ int productDetails()
                 total_quentity += stock.quantity;
             }
         }
-        printf("%d\t %s\t\t %s\t\t\t %s\t\t %d\n", product.id, product.name, product.description, product.selling_price, total_quentity);
+        printf("%d\t"red"|"white"\t%s\t"red"|"white"\t\t%s\t"red"|"white"\t\t%s\t"red"|"white"\t%d\n", product.id, product.name, product.description, product.selling_price, total_quentity);
     }
 
     fclose(productTable);
@@ -202,9 +205,9 @@ int get_low_stock_products()
     char product_line[400];
     char stock_line[400];
 
-    printf("-----------------------------------------------------------------\n");
+    printf(red"--------------------------------------------------------------------------------------------"white"\n");
     printf("%s\t %s\t\t %s\t\t %s\n", "Id", "Name", "Description", "Quantity Left");
-    printf("---\t ---\t\t ---\t\t\t ------\n");
+    printf(red"--------------------------------------------------------------------------------------------"white"\n");
 
     while (fgets(product_line, sizeof(product_line), productTable) != NULL)
     {
@@ -224,6 +227,7 @@ int get_low_stock_products()
             printf("%d\t %s\t\t %s\t\t\t %d\n", product.id, product.name, product.description, total_quentity);
         }
     }
+    printf(red"--------------------------------------------------------------------------------------------"white"\n");
 
     fclose(productTable);
     fclose(stockTable);
@@ -250,10 +254,9 @@ int get_expiring_items()
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
 
-    printf("-----------------------------------------------------------------\n");
+    printf(red"--------------------------------------------------------------------------------------------"white"\n");
     printf("%s\t %s\t\t %s\t\t %s\n", "Id", "Name", "Description", "Days Left to expire");
-    printf("---\t ---\t\t ---\t\t\t ------\n");
-
+    printf(red"--------------------------------------------------------------------------------------------"white"\n");
     while (fgets(product_line, sizeof(product_line), productTable) != NULL)
     {
         sscanf(product_line, "%d, %99[^,], %299[^,], %19[^,], %19[^,]", &product.id, product.name, product.description, &product.cost_price, &product.selling_price);
@@ -281,6 +284,7 @@ int get_expiring_items()
             }
         }
     }
+    printf(red"--------------------------------------------------------------------------------------------"white"\n");
 
     fclose(productTable);
     fclose(stockTable);
@@ -301,6 +305,7 @@ int manage_reports()
     printf("\033[1;34m?\033[0m 3 -List low stock products\n");
     printf("\033[1;34m?\033[0m 4 -List expiring products\n");
     printf("\033[1;34m?\033[0m 5 -View sales profit\n");
+    printf("\033[1;34m?\033[0m 6 - Back to main menu\n");
     printf("\033[1m-------------------------------\033[0m\n\n");
     printf("Insert the operation: ");
     scanf("%d", &operation);
@@ -322,8 +327,11 @@ int manage_reports()
     case 5:
         // view_sales_profit();
         break;
+    case 6:
+        break;
+
     }
-    } while(true);
+    } while(operation != 6);
 
    
     return 0;
