@@ -307,8 +307,7 @@ int manage_reports()
         printf(CYAN"?\033[0m 2 - List most searched products\n");
         printf(RED"?\033[0m 3 - List low stock products\n");
         printf(RED"?\033[0m 4 - List expiring products\n");
-        printf(RED"?\033[0m 5 - View sales profit\n");
-        printf(RED"?\033[0m 6 - Back to main menu\n");
+        printf(RED"?\033[0m 5 - Back to main menu\n");
         printf(BOLD"-------------------------------"RESET"\n\n");
     printf("Insert the operation: ");
     scanf("%d", &operation);
