@@ -1,4 +1,6 @@
 #include <stdio.h>
+#define ANSI_COLOR_GREEN "\x1b[32m"
+#define ANSI_COLOR_RESET "\x1b[0m"
 
 int get_seller_id() {
   FILE *seller_table;
@@ -106,30 +108,40 @@ int manage_sellers() {
 
 
     int choice;
+    system("clear");
     do {
-        printf("\nInventory Management System\n");
-        printf("1. Add Seller\n");
-        printf("2. Remove Seller\n");
-        printf("3. Display Active Sellers\n");
-        printf("4. Exit\n");
+
+
+        printf(ANSI_COLOR_GREEN "Manage Sellers" ANSI_COLOR_RESET "\n");
+        printf("+----+------------------------+\n");
+        printf("| %2d | %-22s |\n", 1, "Add Seller");
+        printf("| %2d | %-22s |\n", 2, "Remove Seller");
+        printf("| %2d | %-22s |\n", 3, "Display All Sellers");
+        printf("| %2d | %-22s |\n", 4, "Exit");
+        printf("+----+------------------------+\n");
         printf("Enter your choice: ");
+
         scanf("%d", &choice);
 
         switch (choice) {
             case 1:
+                system("clear");
                 addSeller();
                 break;
             case 2:
+                system("clear");
                 removeSeller();
                 break;
             case 3:
+               system("clear");
                 displayAllSellers();
                 break;
+  
                        
         }
      
        
-    } while(1);
+    } while(choice != 4);
     return 0;
 
 }

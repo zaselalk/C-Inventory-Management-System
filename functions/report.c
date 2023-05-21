@@ -297,6 +297,7 @@ int get_expiring_items()
 int manage_reports()
 {
     int operation;
+    system("clear");
 
     do{
         printf("\n");

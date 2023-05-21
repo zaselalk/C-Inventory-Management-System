@@ -108,11 +108,16 @@ int manage_suppliers() {
     system("clear");
     int choice;
     do {
-        printf("\nInventory Management System\n");
-        printf("1. Add Supplier\n");
-        printf("2. Remove Supplier\n");
-        printf("3. Display Active Supplier\n");
-        printf("4. Exit\n");
+
+        printf(ANSI_COLOR_GREEN "Manage Suppliers" ANSI_COLOR_RESET "\n");
+        printf("+----+------------------------+\n");
+        printf("| %2d | %-22s |\n", 1, "Add Supplier");
+        printf("| %2d | %-22s |\n", 2, "Remove Supplier");
+        printf("| %2d | %-22s |\n", 3, "Display All Supplier");
+        printf("| %2d | %-22s |\n", 4, "Exit");
+        printf("+----+------------------------+\n");
+
+
         printf("Enter your choice: ");
         scanf("%d", &choice);
 
@@ -130,7 +135,7 @@ int manage_suppliers() {
         }
      
        
-    } while(1);
+    } while(choice !=4);
     return 0;
 
 }
