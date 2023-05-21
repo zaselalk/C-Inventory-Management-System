@@ -17,7 +17,7 @@ typedef struct
 } Supplier;
 
 void add_supplier()
-{
+{   
 
   Supplier supplier;
   FILE *supplierTable;
