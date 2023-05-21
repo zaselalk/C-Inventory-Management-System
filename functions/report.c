@@ -4,8 +4,12 @@
 #include <time.h>
 #include <stdbool.h>
 
-#define red "\e[0;31m"
-#define white "\e[0;37m"
+#define RED "\033[0;31m"
+#define WHITE "\033[0;37m"
+#define GREEN "\033[0;32m"
+#define CYAN "\033[0;36m"
+#define BOLD "\033[1m"
+#define RESET "\033[0m"
 
 // List all product
 int productDetails()
@@ -24,9 +28,9 @@ int productDetails()
     char product_line[400];
     char stock_line[400];
 
-    printf(red"----------------------------------------------------------------------------------------------------"white"\n");
-    printf("%s\t"red"|"white"\t%s\t"red"|"white"\t%s\t"red"|"white"\t%s\t"red"|"white"\t%s\n", "Id", "Name", "Description", "Selling Price", "Quantity");
-    printf(red"----------------------------------------------------------------------------------------------------"white"\n");
+    printf(RED"----------------------------------------------------------------------------------------------------"RESET"\n");
+    printf("%s\t"RED"|"RESET"\t%s\t"RED"|"RESET"\t%s\t"RED"|"RESET"\t%s\t"RED"|"RESET"\t%s\n", "Id", "Name", "Description", "Selling Price", "Quantity");
+    printf(RED"----------------------------------------------------------------------------------------------------"RESET"\n");
 
     while (fgets(product_line, sizeof(product_line), productTable) != NULL)
     {
@@ -41,7 +45,7 @@ int productDetails()
                 total_quentity += stock.quantity;
             }
         }
-        printf("%d\t"red"|"white"\t%s\t"red"|"white"\t%s\t\t"red"|"white"\t%s\t\t%d\n", product.id, product.name, product.description, product.selling_price, total_quentity);
+        printf("%d\t"RED"|"WHITE"\t%s\t"RED"|"WHITE"\t%s\t\t"RED"|"WHITE"\t%s\t\t%d\n", product.id, product.name, product.description, product.selling_price, total_quentity);
     }
 
     fclose(productTable);
@@ -177,15 +181,15 @@ void get_most_searched_product()
         }
     }
 
-    printf("\e[0;31m----------------------------------------------------------------------------------------------\e[0;37m\n");
-    printf("Most searched ids\t\e[0;31m |\e[0;37m\tCount\t\e[0;31m |\e[0;37m\tMost searched products\t\e[0;31m |\e[0;37m\tCount\n");
-    printf("\e[0;31m----------------------------------------------------------------------------------------------\e[0;37m\n");
+    printf(RED"----------------------------------------------------------------------------------------------"RESET"\n");
+    printf("Most searched ids\t"RED "|"RESET"\tCount\t"RED "|"RESET"\tMost searched products\t"RED "|"RESET"\tCount\n");
+    printf(RED"----------------------------------------------------------------------------------------------"RESET"\n");
     for (int i = 0; i < 3; i++)
     {
-        printf("\t%d\t\t\e[0;31m |\e[0;37m\t%d times\t\e[0;31m |\e[0;37m\t", most_appeared_ids[i], most_appeared_id_count[i]);
-        printf("\t%s\t\t\e[0;31m |\e[0;37m\t%d times\n", most_appeared_names[i], most_appeared_count[i]);
+        printf("\t%d\t\t"RED" |"WHITE"\t%d times\t"RED" |"WHITE"\t", most_appeared_ids[i], most_appeared_id_count[i]);
+        printf("\t%s\t\t"RED" |"WHITE"\t%d times\n", most_appeared_names[i], most_appeared_count[i]);
     }
-    printf("\e[0;31m----------------------------------------------------------------------------------------------\e[0;37m\n");
+    printf(RED"----------------------------------------------------------------------------------------------"WHITE"\n");
     fclose(searchLogTable);
     fclose(searchIdLogTable);
 }
@@ -206,9 +210,9 @@ int get_low_stock_products()
     char product_line[400];
     char stock_line[400];
 
-    printf(red"--------------------------------------------------------------------------------------------"white"\n");
+    printf(RED"--------------------------------------------------------------------------------------------"RESET"\n");
     printf("%s\t %s\t\t %s\t\t %s\n", "Id", "Name", "Description", "Quantity Left");
-    printf(red"--------------------------------------------------------------------------------------------"white"\n");
+    printf(RED"--------------------------------------------------------------------------------------------"RESET"\n");
 
     while (fgets(product_line, sizeof(product_line), productTable) != NULL)
     {
@@ -228,7 +232,6 @@ int get_low_stock_products()
             printf("%d\t %s\t\t %s\t\t\t %d\n", product.id, product.name, product.description, total_quentity);
         }
     }
-    printf(red"--------------------------------------------------------------------------------------------"white"\n");
 
     fclose(productTable);
     fclose(stockTable);
@@ -255,9 +258,9 @@ int get_expiring_items()
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
 
-    printf(red"--------------------------------------------------------------------------------------------"white"\n");
+    printf(RED"--------------------------------------------------------------------------------------------"RESET"\n");
     printf("%s\t %s\t\t %s\t\t %s\n", "Id", "Name", "Description", "Days Left to expire");
-    printf(red"--------------------------------------------------------------------------------------------"white"\n");
+    printf(RED"--------------------------------------------------------------------------------------------"RESET"\n");
     while (fgets(product_line, sizeof(product_line), productTable) != NULL)
     {
         sscanf(product_line, "%d, %99[^,], %299[^,], %19[^,], %19[^,]", &product.id, product.name, product.description, product.cost_price, product.selling_price);
@@ -285,7 +288,6 @@ int get_expiring_items()
             }
         }
     }
-    printf(red"--------------------------------------------------------------------------------------------"white"\n");
 
     fclose(productTable);
     fclose(stockTable);
@@ -297,43 +299,43 @@ int manage_reports()
     int operation;
 
     do{
-   
-    printf("\n");
-    printf("\033[1;34mREPORT\033[0m\n\n");
-    printf("\033[1mOperations\033[0m\n\n");
-    printf("\033[1m-------------------------------\033[0m\n");
-    printf("\033[1;32m+\033[0m 1 -List all products\n");
-    printf("\033[1;36m?\033[0m 2 -List most seached products\n");
-    printf("\033[1;34m?\033[0m 3 -List low stock products\n");
-    printf("\033[1;34m?\033[0m 4 -List expiring products\n");
-    printf("\033[1;34m?\033[0m 5 -View sales profit\n");
-    printf("\033[1;34m?\033[0m 6 - Back to main menu\n");
-    printf("\033[1m-------------------------------\033[0m\n\n");
+        printf("\n");
+        printf(BOLD"REPORT"RESET"\n\n");
+        printf(BOLD"Operations"RESET"\n\n");
+        printf(BOLD"-------------------------------"RESET"\n");
+        printf(GREEN"+\033[0m 1 - List all products\n");
+        printf(CYAN"?\033[0m 2 - List most searched products\n");
+        printf(RED"?\033[0m 3 - List low stock products\n");
+        printf(RED"?\033[0m 4 - List expiring products\n");
+        printf(RED"?\033[0m 5 - Back to main menu\n");
+        printf(BOLD"-------------------------------"RESET"\n\n");
     printf("Insert the operation: ");
     scanf("%d", &operation);
 
     switch (operation)
     {
     case 1:
+        system("clear");
         productDetails();
         break;
     case 2:
+        system("clear");
         get_most_searched_product();
         break;
     case 3:
+        system("clear");
         get_low_stock_products();
         break;
     case 4:
+        system("clear");
         get_expiring_items();
         break;
     case 5:
-        // view_sales_profit();
-        break;
-    case 6:
+        system("clear");
         break;
 
     }
-    } while(operation != 6);
+    } while(operation != 5);
 
    
     return 0;
