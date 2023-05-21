@@ -3,7 +3,6 @@
 #include <string.h>
 #define productTableAddress "./data/products.txt"
 
-
 void clearInputBuffer() {
   int c;
   while ((c = getchar()) != '\n' && c != EOF)
@@ -57,20 +56,21 @@ void show_single_product() {
   get_single_product(product_id);
 }
 
-void show_suppliers(){
+void show_suppliers() {
   char line[400];
   FILE *supplier_table;
   Supplier supplier;
-  supplier_table = fopen("./data/supplier.txt","r");
+  supplier_table = fopen("./data/supplier.txt", "r");
 
   printf("All Suppliers \n");
 
-  while(fgets(line,sizeof(line),supplier_table) != NULL){
-        sscanf(line, "%d, %99[^,], %12[^,]", &supplier.id, supplier.name,
+  while (fgets(line, sizeof(line), supplier_table) != NULL) {
+    sscanf(line, "%d, %99[^,], %12[^,]", &supplier.id, supplier.name,
            supplier.contact_number);
-  
-        printf("%d, %s, %s \n",supplier.id,supplier.name,supplier.contact_number);
-    }
+
+    printf("%d, %s, %s \n", supplier.id, supplier.name,
+           supplier.contact_number);
+  }
 
   fclose(supplier_table);
 }
@@ -79,35 +79,30 @@ void add_product() {
   Product product;
   FILE *productTable;
 
-
-
   clearInputBuffer();
   system("clear");
 
   printf("Enter New Product to the Database \n");
-  
+
   printf("Enter product name: ");
   fgets(product.name, 100, stdin);
-  product.name[strcspn(product.name, "\n")] = '\0'; 
+  product.name[strcspn(product.name, "\n")] = '\0';
 
   printf("Enter product description: ");
   fgets(product.description, 300, stdin);
-  product.description[strcspn(product.description, "\n")] =
-      '\0'; 
+  product.description[strcspn(product.description, "\n")] = '\0';
 
   printf("Enter product cost price: ");
   fgets(product.cost_price, 20, stdin);
-  product.cost_price[strcspn(product.cost_price, "\n")] =
-      '\0'; 
+  product.cost_price[strcspn(product.cost_price, "\n")] = '\0';
 
   printf("Enter product selling price: ");
   fgets(product.selling_price, 20, stdin);
   product.selling_price[strcspn(product.selling_price, "\n")] =
       '\0'; // remove new line character
 
-  //load supplier data
-   show_suppliers();
-
+  // load supplier data
+  show_suppliers();
 
   printf("Enter product supplier id: ");
   fgets(product.supplier_id, 20, stdin);
@@ -151,19 +146,19 @@ void delete_product() {
     return;
   }
 
- 
-
   Product product;
 
   char line[400];
 
   while (fgets(line, sizeof(line), productTable) != NULL) {
-    sscanf(line, "%d, %99[^,], %299[^,]", &product.id, product.name,
-           product.description);
+    sscanf(line, "%d, %99[^,], %299[^,], %19[^,], %19[^,], %19[^,]",
+           &product.id, product.name, product.description, product.cost_price,
+           product.selling_price, product.supplier_id);
     if (product_id != product.id) {
-     
-      fprintf(newProductTable, "%d, %s, %s", product.id, product.name,
-              product.description);
+      fprintf(productTable, "%d, %s, %s, %s, %s, %s \n", product.id,
+              product.name, product.description, product.cost_price,
+              product.selling_price, product.supplier_id);
+      fclose(productTable);
     }
   }
 
@@ -182,25 +177,24 @@ void delete_product() {
 }
 
 void update_product() {
-  int find_product_id;
-
-  printf("Enter product id: ");
-  scanf("%d", &find_product_id);
-
   FILE *productTable;
   FILE *newProductTable;
+
+  int product_id;
+  printf("Enter product id: ");
+  scanf("%d", &product_id);
 
   productTable = fopen(productTableAddress, "r");
 
   if (productTable == NULL) {
-    printf("Product deletion failed! Please try again. Error Code : P005");
+    printf("Product update failed! Please try again. ");
     return;
   }
 
   newProductTable = fopen("./data/products_new.txt", "w");
 
   if (newProductTable == NULL) {
-    printf("Product deletion failed! Please try again. Error Code : P006");
+    printf("Product update failed! Please try again.");
     return;
   }
 
@@ -209,23 +203,48 @@ void update_product() {
   char line[400];
 
   while (fgets(line, sizeof(line), productTable) != NULL) {
-    sscanf(line, "%d, %99[^,], %299[^,]", &product.id, product.name,
-           product.description);
-    if (find_product_id != product.id) {
+    sscanf(line, "%d, %99[^,], %299[^,], %19[^,], %19[^,], %19[^,]",
+           &product.id, product.name, product.description, product.cost_price,
+           product.selling_price, product.supplier_id);
+    if (product_id == product.id) {
+      clearInputBuffer();
+      printf("Enter new product name: ");
+      fgets(product.name, 100, stdin);
+      product.name[strcspn(product.name, "\n")] = '\0';
 
-      fprintf(newProductTable, "%d, %s, %s", product.id, product.name,
-              product.description);
+      printf("Enter new product description: ");
+      fgets(product.description, 300, stdin);
+      product.description[strcspn(product.description, "\n")] = '\0';
+
+      printf("Enter new product cost price: ");
+      fgets(product.cost_price, 20, stdin);
+      product.cost_price[strcspn(product.cost_price, "\n")] = '\0';
+
+      printf("Enter new product selling price: ");
+      fgets(product.selling_price, 20, stdin);
+      product.selling_price[strcspn(product.selling_price, "\n")] = '\0';
+
+      printf("Enter new product supplier id: ");
+      fgets(product.supplier_id, 20, stdin);
+      product.supplier_id[strcspn(product.supplier_id, "\n")] = '\0';
     }
+
+    fprintf(newProductTable, "%d, %s, %s, %s, %s, %s \n", product.id,
+            product.name, product.description, product.cost_price,
+            product.selling_price, product.supplier_id);
   }
+
+  fclose(newProductTable);
+  fclose(productTable);
 
   int deleteResult = remove(productTableAddress);
   if (deleteResult != 0) {
-    printf("Product update failed! Please try again");
+    printf("Product update failed! Please try again Error Code : P003");
   }
 
   int renameResult = rename("./data/products_new.txt", productTableAddress);
   if (renameResult != 0) {
-    printf("Product update failed! Please try again ");
+    printf("Product update failed! Please try again Error Code : P004");
   }
 }
 
