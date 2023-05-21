@@ -1,0 +1,2 @@
+1, dell-laptop, laptops, 20000, 30000, 1 
+2, kalaniWires, hardware, 500, 900, 1 
