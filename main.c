@@ -45,12 +45,12 @@ int main() {
     break;
   case 4:
     manage_warehouse();
-      system("clear");
+    system("clear");
     main();
     break;
   case 5:
     manage_sellers();
-      system("clear");
+    system("clear");
     main();
     break;
   case 6:
