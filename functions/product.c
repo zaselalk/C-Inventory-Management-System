@@ -62,15 +62,18 @@ void show_suppliers() {
   Supplier supplier;
   supplier_table = fopen("./data/supplier.txt", "r");
 
-  printf("All Suppliers \n");
+  printf("\n");
+  printf("--------------------------- \n");
+  printf("All Suppliers Details \n");
+  printf("--------------------------- \n");
+
 
   while (fgets(line, sizeof(line), supplier_table) != NULL) {
-    sscanf(line, "%d, %99[^,], %12[^,]", &supplier.id, supplier.name,
-           supplier.contact_number);
-
-    printf("%d, %s, %s \n", supplier.id, supplier.name,
-           supplier.contact_number);
+    sscanf(line, "%d, %99[^,]", &supplier.id, supplier.name);
+    printf("%d -  %s \n", supplier.id, supplier.name);
   }
+  printf("\n");
+
 
   fclose(supplier_table);
 }
@@ -121,6 +124,7 @@ void add_product() {
   fprintf(productTable, "%d, %s, %s, %s, %s, %s \n", product.id, product.name,
           product.description, product.cost_price, product.selling_price,
           product.supplier_id);
+  printf("New Product Added Successully!");
   fclose(productTable);
 }
 
@@ -154,11 +158,11 @@ void delete_product() {
     sscanf(line, "%d, %99[^,], %299[^,], %19[^,], %19[^,], %19[^,]",
            &product.id, product.name, product.description, product.cost_price,
            product.selling_price, product.supplier_id);
+    printf("%d vs %d\n",product_id,product.id);
     if (product_id != product.id) {
-      fprintf(productTable, "%d, %s, %s, %s, %s, %s \n", product.id,
+      fprintf(newProductTable, "%d, %s, %s, %s, %s, %s", product.id,
               product.name, product.description, product.cost_price,
               product.selling_price, product.supplier_id);
-      fclose(productTable);
     }
   }
 
@@ -206,6 +210,7 @@ void update_product() {
     sscanf(line, "%d, %99[^,], %299[^,], %19[^,], %19[^,], %19[^,]",
            &product.id, product.name, product.description, product.cost_price,
            product.selling_price, product.supplier_id);
+
     if (product_id == product.id) {
       clearInputBuffer();
       printf("Enter new product name: ");
@@ -224,10 +229,13 @@ void update_product() {
       fgets(product.selling_price, 20, stdin);
       product.selling_price[strcspn(product.selling_price, "\n")] = '\0';
 
+      show_suppliers();
       printf("Enter new product supplier id: ");
       fgets(product.supplier_id, 20, stdin);
-      product.supplier_id[strcspn(product.supplier_id, "\n")] = '\0';
     }
+    
+    //clear new line character from last element
+    product.supplier_id[strcspn(product.supplier_id, "\n")] = '\0';
 
     fprintf(newProductTable, "%d, %s, %s, %s, %s, %s \n", product.id,
             product.name, product.description, product.cost_price,

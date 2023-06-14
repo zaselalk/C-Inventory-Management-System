@@ -1,2 +1,2 @@
-1, ashen-supply, 78653226 
-2, dilSupply, 702536146 
+1, ABC Supllier (Sri Lanka), 78653226 
+2, FTT Fruite Suppliers (Australia), 702536146 
