@@ -158,7 +158,6 @@ void delete_product() {
     sscanf(line, "%d, %99[^,], %299[^,], %19[^,], %19[^,], %19[^,]",
            &product.id, product.name, product.description, product.cost_price,
            product.selling_price, product.supplier_id);
-    printf("%d vs %d\n",product_id,product.id);
     if (product_id != product.id) {
       fprintf(newProductTable, "%d, %s, %s, %s, %s, %s", product.id,
               product.name, product.description, product.cost_price,

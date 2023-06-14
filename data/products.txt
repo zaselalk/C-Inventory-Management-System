@@ -1,2 +1,2 @@
-1, Apple, Apple from australia, 100, 120, 2   
-2, New, sd, 100, 120, 1 
+1, Apple, Apple from Aus, 100, 120, 2  
+2, Orange, Orange from Sri Lanka, 80, 160, 1 

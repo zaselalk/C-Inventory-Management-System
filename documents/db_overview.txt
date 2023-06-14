@@ -5,38 +5,29 @@
     -  id - unique Id for each products
     -  name - name for product
     -  description - product description
+    -  seller_id - Id od seller
     -  selling_price - selling price per 1 item
     -  cost_price  - cost per sincle product
 
 # stock_table
-    - Id - unique Id per each stock
+    - id - unique Id per each stock
     - product_id - product Id of a order
     - quentity - quentity of that stock
     - warehouse_id - warehouse_id of stock saved
     - expire_date - null or date
 
 # suppliers_table
-    - Id -  unique Id per each record
-    - product_id - id of product that supplier supply
+    - id -  unique Id per each record
     - supplier_name - supplier name
     - supplier_contanct_number - supplier contact number
 
 # warehouse_table
-    - Id - unique id per each warehouse
+    - id - unique id per each warehouse
     - warehouse_name - name per warehouse
     - warehouse_location - location of a warehouse
 
-# order_table
-    - Id  - unique Id per each order
-    - order_date - date of order
-    - product_id - product of that order
-    - quentity - quentity of order
-    - seller_id - id of seller who take the order
-
 # seller_table
-    - Id - unique id per each seller
-    - seller_name - Name of the seller
-    - seller_contant_number - Contanct number of the seller
-
-
+    - id - unique id per each seller
+    - name - Name of the seller
+    - rating - Seller rating
 
