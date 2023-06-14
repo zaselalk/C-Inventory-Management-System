@@ -155,11 +155,11 @@ void delete_product() {
            &product.id, product.name, product.description, product.cost_price,
            product.selling_price, product.supplier_id);
     if (product_id != product.id) {
-      fprintf(productTable, "%d, %s, %s, %s, %s, %s \n", product.id,
+      fprintf(newProductTable, "%d, %s, %s, %s, %s, %s", product.id,
               product.name, product.description, product.cost_price,
               product.selling_price, product.supplier_id);
-      fclose(productTable);
     }
+  
   }
 
   fclose(newProductTable);
@@ -167,12 +167,12 @@ void delete_product() {
 
   int deleteResult = remove("./data/products.txt");
   if (deleteResult != 0) {
-    printf("Product update failed! Please try again Error Code : P003");
+    printf("Product update failed! ");
   }
 
   int renameResult = rename("./data/products_new.txt", "./data/products.txt");
   if (renameResult != 0) {
-    printf("Product update failed! Please try again Error Code : P004");
+    printf("Product update failed!");
   }
 }
 
@@ -229,7 +229,7 @@ void update_product() {
       product.supplier_id[strcspn(product.supplier_id, "\n")] = '\0';
     }
 
-    fprintf(newProductTable, "%d, %s, %s, %s, %s, %s \n", product.id,
+    fprintf(newProductTable, "%d, %s, %s, %s, %s, %s", product.id,
             product.name, product.description, product.cost_price,
             product.selling_price, product.supplier_id);
   }
