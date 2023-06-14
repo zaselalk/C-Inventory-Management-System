@@ -92,14 +92,15 @@ void display_all_suppliers() {
     FILE *supplier_table;
     supplier_table = fopen("./data/supplier.txt","r");
     char line[400];
-    Seller seller;
+    Supplier supplier;
 
-    printf("Seller Id | Seller Name | Seller rating\n");
+    printf("\n");
+    printf("Supplier Id | Supplier Name | Supplier rating\n");
     while(fgets(line,sizeof(line),supplier_table) != NULL){
-        sscanf(line, "%d, %99[^,], %f", &seller.id, seller.name,
-           &seller.rating);
+        sscanf(line, "%d, %99[^,], %11[^,]", &supplier.id, supplier.name,
+           supplier.contact_number);
   
-        printf("%d, %s, %.2f \n",seller.id,seller.name,seller.rating);
+        printf("\t(%d)\t%s\t\t%s\n",supplier.id,supplier.name,supplier.contact_number);
     }
 }
 
